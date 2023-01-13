@@ -1,8 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import stateSlice from "./stateSlice";
+import { response } from "./stateSlice";
 
-function saveToLocalStorage(state) {
+function saveToLocalStorage(state: response[]) {
   try {
     const serialisedState = JSON.stringify(state);
     localStorage.setItem("persistantState", serialisedState);
@@ -35,7 +36,7 @@ export const setupStore = () => {
 
 export const store = setupStore();
 
-store.subscribe(() => saveToLocalStorage(store.getState().stateSlice));
+store.subscribe(() => saveToLocalStorage(store.getState().stateSlice.wishList));
 
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>

@@ -1,13 +1,14 @@
-import React from 'react';
+import { FC } from 'react';
 import { Provider } from 'react-redux';
 import './App.css';
+import MainPage from './components/MainPage/MainPage';
 import { store } from './redux/store';
 
-function App() {
+const App: FC = () => {
   return (
     <>
     <Provider store={store}>
-
+      <MainPage />
     </Provider>
     </>
   );

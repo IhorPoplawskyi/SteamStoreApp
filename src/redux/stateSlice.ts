@@ -1,75 +1,54 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export interface response {
-  id: number
-  featured: boolean
+  appId: string
   title: string
   url: string
-  imageUrl: string
-  newsSite: string
-  summary: string
-  publishedAt: string
+  imgUrl: string
+  released: string
+  reviewSummary: string
+  price: string
 }
 
 interface IinitialState {
-  keywords: string
+  games: response[] | null
+  wishList: response[]
   isLoading: boolean
-  resultsWithTitle: response[] | null
-  resultsWithSummary: response[] | null
-  mergedResults: response[] | null
-  page: number
-  article: response | null
+  gameName: string
+  page: string
 }
 
 const initState: IinitialState = {
-  keywords: '',
+  games: null,
+  wishList: [],
   isLoading: false,
-  resultsWithTitle: null,
-  resultsWithSummary: null,
-  mergedResults: null,
-  page: 1,
-  article: null,
+  gameName: '',
+  page: '1'
 }
 
 const stateSlice = createSlice({
   name: 'stateSlice',
   initialState: initState,
   reducers: {
-    setKeywords(state, action: PayloadAction<string>) {
-      state.keywords = action.payload
+    setWordtoSearch(state, action: PayloadAction<string>) {
+      state.gameName = action.payload
     },
-    setResultsWithTitle(state, action: PayloadAction<response[]>) {
-      state.resultsWithTitle = action.payload
-    },
-    setResultsWithSummary(state, action: PayloadAction<response[]>) {
-      state.resultsWithSummary = action.payload
-    },
-    setArticle(state, action: PayloadAction<response>) {
-      state.article = action.payload
+    setResults(state, action: PayloadAction<response[]>) {
+      state.games = action.payload
     },
     setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload
     },
-    setPage(state, action: PayloadAction<number>) {
+    setPage(state, action: PayloadAction<string>) {
       state.page = action.payload
-    },
-    mergeResults(state, action: PayloadAction<response[]>) {
-      state.mergedResults = [...state.mergedResults!,...action.payload].filter((el,index,array)=>array.findIndex(el2=>(el2.id===el.id))===index)
-    },
-    resetResults(state) {
-      state.mergedResults = []
     },
   }
 })
 
 export const {
-  setKeywords,
-  setResultsWithTitle,
-  setResultsWithSummary,
   setIsLoading,
   setPage,
-  mergeResults,
-  resetResults,
-  setArticle,
+  setResults,
+  setWordtoSearch,
 } = stateSlice.actions
 export default stateSlice.reducer
