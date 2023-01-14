@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components';
 import { setPage } from '../../redux/stateSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -11,7 +11,8 @@ const StyledMainPage = styled.div`
 const StyledCardContainer = styled.div`
     margin-top: 60px;
     display: flex;
-    justify-content: space-evenly;
+    gap: 15px;
+    justify-content: center;
     flex-wrap: wrap;
 `
 
@@ -24,10 +25,15 @@ const StyledButton = styled.button`
     outline: none;
     cursor: pointer;
 `
+const StyledContainerButton = styled.div`
+    display: flex;
+    justify-content: center;
+`
 
 const MainPage: FC = () => {
     const results = useAppSelector(state => state.stateSlice.games);
     const page = useAppSelector(state => state.stateSlice.page);
+    const countPerPage = 4;
     const dispatch = useAppDispatch();
 
     return (
@@ -35,9 +41,11 @@ const MainPage: FC = () => {
             <StyledMainPage>
                 <NavigationBar />
                 <StyledCardContainer>
-                    {results && results!.slice(0, page*4)?.map(el => <GameCard {...el}/>)}
+                    {results && results!.slice(0, page * countPerPage)?.map(el => <GameCard {...el} />)}
                 </StyledCardContainer>
-                <StyledButton onClick={() => dispatch(setPage(page + 1))}>Show more</StyledButton>
+                {results && <StyledContainerButton>
+                    <StyledButton onClick={() => dispatch(setPage(page + 1))}>Show more</StyledButton>
+                </StyledContainerButton>}
             </StyledMainPage>
         </>
     )

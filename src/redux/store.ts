@@ -6,7 +6,7 @@ import { response } from "./stateSlice";
 function saveToLocalStorage(state: response[]) {
   try {
     const serialisedState = JSON.stringify(state);
-    localStorage.setItem("persistantState", serialisedState);
+    localStorage.setItem("LikedItems", serialisedState);
   } catch (e) {
     console.warn(e);
   }
@@ -14,7 +14,7 @@ function saveToLocalStorage(state: response[]) {
 
 function loadFromLocalStorage() {
   try {
-    const serialisedState = localStorage.getItem("persistantState");
+    const serialisedState = localStorage.getItem("LikedItems");
     if (serialisedState === null) return undefined;
     return JSON.parse(serialisedState);
   } catch (e) {

@@ -5,9 +5,10 @@ import filter from '../../icons/filter.png'
 import SearchBar from './SearchBar'
 
 const StyledNavBar = styled.div`
-    margin: 35px 15px 0px 15px;
+    margin: 35px 35px 0px 35px;
     display: flex;
     justify-content: space-between;
+    gap: 1%
 `
 
 const StyledFilter = styled.div`
@@ -49,9 +50,7 @@ const LikeList = styled.div`
     cursor: pointer;
 `
 
-const StyledLogo = styled.div`
-
-`
+const StyledLogo = styled.div``
 
 const NavBar: FC = () => {
     
