@@ -4,8 +4,8 @@ import { response } from '../../redux/stateSlice';
 
 const GameCard: FC<response> = ({ imgUrl, title, price, released }) => {
   const StyledGameCard = styled.div`
-    height: 310px;
-    width: 23%;
+    min-height: 280px;
+    width: 21%;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -14,6 +14,8 @@ const GameCard: FC<response> = ({ imgUrl, title, price, released }) => {
   `
   const StyledImgContainer = styled.div`
     height: 140px;
+    border-radius: 10px;
+    background: #17323A;
   `
   const StyledImg = styled.img`
     background-size: contain;
@@ -29,8 +31,12 @@ const GameCard: FC<response> = ({ imgUrl, title, price, released }) => {
 
   const StyledTitle = styled(StyledInfo)``
   const StyledReleased = styled(StyledInfo)`
-    margin-top: 10px;
     font-size: 16px;
+    margin-top: 10px;
+  `
+  const StyledPrice = styled(StyledInfo)`
+    font-size: 16px;
+    margin-top: 10px;
   `
 
   return (
@@ -38,8 +44,9 @@ const GameCard: FC<response> = ({ imgUrl, title, price, released }) => {
       <StyledGameCard>
         <StyledImgContainer>
           <StyledImg src={imgUrl} alt='image' />
-          <StyledTitle>{title}</StyledTitle>
+          <StyledTitle>{title.length > 80 ? title.slice(0, 79) + '...' : title}</StyledTitle>
           <StyledReleased>{released}</StyledReleased>
+          <StyledPrice>{price}</StyledPrice>
         </StyledImgContainer>
       </StyledGameCard>
     </>

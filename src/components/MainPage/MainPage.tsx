@@ -8,9 +8,9 @@ const StyledMainPage = styled.div`
     width: 100%;
 `
 const StyledCardContainer = styled.div`
-    margin-top: 70px;
+    margin-top: 60px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-wrap: wrap;
 `
 
