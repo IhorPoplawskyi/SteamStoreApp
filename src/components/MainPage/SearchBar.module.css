@@ -1,0 +1,14 @@
+.SearchBar {
+  height: 35px;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  background: #837F7F;
+  width: 52%;
+  color: white;
+  padding-left: 15px;
+}
+
+.SearchBar::placeholder {
+  color: white;
+}

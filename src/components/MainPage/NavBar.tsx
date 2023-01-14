@@ -2,26 +2,12 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import logo_steam from '../../icons/logo_steam.svg'
 import filter from '../../icons/filter.png'
+import SearchBar from './SearchBar'
 
 const StyledNavBar = styled.div`
     margin: 35px 15px 0px 15px;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-`
-
-const StyledSearchBar = styled.input`
-    height: 35px;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    background: #837F7F;
-    width: 50%;
-    color: white;
-    padding-left: 15px;
-    &::placeholder {
-        color: white;
-    }
 `
 
 const StyledFilter = styled.div`
@@ -32,6 +18,7 @@ const StyledFilter = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     img {
         background: #837F7F;
     }
@@ -43,30 +30,46 @@ const StyledPriceFilter = styled.select`
     background: #837F7F;
     border-radius: 10px;
     color: white;
-    &:after {
-        content: "!@";
-        background-color: black;
+    outline: none;
+    &::after {
+        border-radius: 10px;
     }
 `
 
-const StyledLogo = styled.div``
+const LikeList = styled.div`
+    height: 35px;
+    width: 15%;
+    background: #837F7F;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 10px;
+    cursor: pointer;
+`
+
+const StyledLogo = styled.div`
+
+`
 
 const NavBar: FC = () => {
+    
     return (
         <>
             <StyledNavBar>
                 <StyledLogo>
                     <img src={logo_steam} alt='logo' />
                 </StyledLogo>
-                <StyledSearchBar placeholder='Enter an app name...'/>
+                <SearchBar/>
                 <StyledFilter>
                     <img src={filter} alt='filter'/>
                 </StyledFilter>
                 <StyledPriceFilter defaultValue={'Price'}>
-                    <option disabled value='Price'>Price</option>
-                    <option>from bigger to lower</option>
-                    <option>from lower to bigger</option>
+                    <option value='Price'>Price</option>
+                    <option value='PublishDate'>PublishDate</option>
                 </StyledPriceFilter>
+                <LikeList>Like list</LikeList>
             </StyledNavBar>
         </>
     )
