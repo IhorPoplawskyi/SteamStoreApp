@@ -36,7 +36,7 @@ export const setupStore = () => {
 
 export const store = setupStore();
 
-store.subscribe(() => saveToLocalStorage(store.getState().stateSlice.wishList));
+store.subscribe(() => saveToLocalStorage(store.getState().stateSlice.likeList));
 
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>

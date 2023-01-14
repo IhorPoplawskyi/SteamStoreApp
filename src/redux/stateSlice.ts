@@ -12,7 +12,7 @@ export interface response {
 
 interface IinitialState {
   games: response[] | null
-  wishList: response[]
+  likeList: response[]
   isLoading: boolean
   gameName: string
   page: string
@@ -20,7 +20,7 @@ interface IinitialState {
 
 const initState: IinitialState = {
   games: null,
-  wishList: [],
+  likeList: [],
   isLoading: false,
   gameName: '',
   page: '1'
@@ -41,6 +41,12 @@ const stateSlice = createSlice({
     },
     setPage(state, action: PayloadAction<string>) {
       state.page = action.payload
+    },
+    addToLikeList(state, action: PayloadAction<response>) {
+      state.likeList.push(action.payload);
+    },
+    deleteFromLikeList(state, action: PayloadAction<string>) {
+      state.likeList = state.likeList.filter(el => el.appId !== action.payload);
     },
   }
 })
