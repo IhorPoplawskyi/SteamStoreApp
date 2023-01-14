@@ -4,9 +4,9 @@ import SearchBar from './SearchBar'
 
 import styled from 'styled-components'
 
-import filter from '../../icons/filter.png'
 import logo_steam from '../../icons/logo_steam.svg'
-import { useAppSelector } from '../../redux/store'
+import { useAppDispatch } from '../../redux/store'
+import { sortByPrice, sortByPublishedDate } from '../../redux/stateSlice'
 
 
 const StyledNavBar = styled.div`
@@ -16,30 +16,21 @@ const StyledNavBar = styled.div`
     gap: 1%
 `
 
-const StyledFilter = styled.div`
+const StyledFilters = styled.select`
     background: #837F7F;
-    height: 35px;
-    width: 35px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    img {
-        background: #837F7F;
-    }
-`
-
-const StyledPriceFilter = styled.select`
     height: 35px;
     width: 20%;
-    background: #837F7F;
-    border-radius: 10px;
     color: white;
+    border-radius: 10px;
+    cursor: pointer;
     outline: none;
-    &::after {
-        border-radius: 10px;
-    }
+    border: none;
+`
+
+const StyledPublisedFilter = styled(StyledFilters)`
+`
+
+const StyledPriceFilter = styled(StyledFilters)`
 `
 
 const LikeList = styled.div`
@@ -55,23 +46,24 @@ const LikeList = styled.div`
     cursor: pointer;
 `
 
-const StyledLogo = styled.div``
+const StyledLogo = styled.img``
 
 const NavBar: FC = (): JSX.Element => {
-    const ls = useAppSelector(state => state.stateSlice.likeList)
+    const dispatch = useAppDispatch();
 
     return (
         <StyledNavBar>
-            <StyledLogo>
-                <img src={logo_steam} alt='logo' />
-            </StyledLogo>
+            <StyledLogo src={logo_steam} alt='logo' />
             <SearchBar />
-            <StyledFilter onClick={() => console.log(ls)}>
-                <img src={filter} alt='filter' />
-            </StyledFilter>
-            <StyledPriceFilter defaultValue={'Price'}>
-                <option value='Price'>Price</option>
-                <option value='PublishDate'>PublishDate</option>
+            <StyledPublisedFilter onChange={event => dispatch((sortByPublishedDate(event.target.value)))} defaultValue={'Sort by published date'}>
+            <option disabled value='Sort by published date'>Sort by published date</option>
+                <option value='Newest'>Newest</option>
+                <option value='Latest'>Latest</option>
+            </StyledPublisedFilter>
+            <StyledPriceFilter onChange={event => dispatch(sortByPrice((event.target.value)))}  defaultValue={'Sort by price'}>
+                <option disabled value='Sort by price'>Sort by price</option>
+                <option value='from lower to bigger'>from lower to bigger</option>
+                <option value='from bigger to lower'>from bigger to lower</option>
             </StyledPriceFilter>
             <LikeList>Like list</LikeList>
         </StyledNavBar>

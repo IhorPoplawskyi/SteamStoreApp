@@ -10,7 +10,7 @@ import redHeart from '../../icons/redHeart.png'
 import { Link } from 'react-router-dom';
 
 
-const StyledGameCard = styled.div`
+export const StyledGameCard = styled.div`
     min-height: 280px;
     width: 21%;
     border-radius: 10px;
@@ -19,29 +19,29 @@ const StyledGameCard = styled.div`
     background: #17323A;
     margin-bottom: 15px;
   `
-const StyledImgContainer = styled.div`
+export const StyledImgContainer = styled.div`
     height: 140px;
     border-radius: 10px;
     background: #17323A;
   `
-const StyledImg = styled.img`
+export const StyledImg = styled.img`
     background-size: contain;
     width: 100%;
     border-radius: 10px;
   `
-const StyledInfo = styled.div`
+export const StyledInfo = styled.div`
     background: #17323A;
     color: white;
     font-size: 22px;
     padding-left: 10px;
   `
-const StyledTitle = styled(StyledInfo)``
-const StyledReleased = styled(StyledInfo)`
+export const StyledTitle = styled(StyledInfo)``
+export const StyledReleased = styled(StyledInfo)`
     font-size: 16px;
     margin-top: 10px;
     display: flex;
   `
-const StyledPriceAndLike = styled.div`
+export const StyledPriceAndLike = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: end;
@@ -51,15 +51,15 @@ const StyledPriceAndLike = styled.div`
     background: #17323A;
     flex-grow: 1;
   `
-const StyledPrice = styled(StyledInfo)`
+export const StyledPrice = styled(StyledInfo)`
     font-size: 16px;
     margin-top: 10px;
   `
-const StyledHeart = styled.img`
+export const StyledHeart = styled.img`
     background: #17323A;
     cursor: pointer;
   `
-const StyledRedHeart = styled.img`
+export const StyledRedHeart = styled.img`
     background: #17323A;
     cursor: pointer;
   `
@@ -70,7 +70,7 @@ const GameCard: FC<game> = (game): JSX.Element => {
 
   return (
     <StyledGameCard>
-      <Link style={{borderRadius: '10px'}} to={`/game/${game.appId}`}>
+      <Link style={{ borderRadius: '10px' }} to={`/game/${game.appId}`}>
         <StyledImgContainer>
           <StyledImg src={game.imgUrl} alt='image' />
         </StyledImgContainer>

@@ -12,13 +12,37 @@ export interface game {
   price: string
 }
 
+interface singleGame {
+  imgUrl: string
+  title: string
+  developer: {
+    name: string
+    link: string;
+  }
+  publisher: {
+    link: string
+    name: string
+  }
+  released: string
+  description: string
+  allReviews: {
+    summary: string
+    reviewCount: string
+    ratingValue: string
+    bestRating: string
+    worstRating: string
+  }
+  price: "Free to Play"
+  DLCs: string
+}
+
 interface IinitialState {
   games: game[] | null
   likeList: game[]
   isLoading: boolean
   gameName: string
   page: number
-  currentGame: game | null
+  currentGame: singleGame | null
 }
 
 const initState: IinitialState = {
@@ -40,7 +64,7 @@ const stateSlice = createSlice({
     setGamesResults(state, action: PayloadAction<game[]>) {
       state.games = action.payload
     },
-    setCurrentGame(state, action: PayloadAction<game>) {
+    setCurrentGame(state, action: PayloadAction<singleGame>) {
       state.currentGame = action.payload
     },
     setIsLoading(state, action: PayloadAction<boolean>) {
@@ -48,6 +72,14 @@ const stateSlice = createSlice({
     },
     setPage(state, action: PayloadAction<number>) {
       state.page = action.payload
+    },
+    sortByPrice(state, action: PayloadAction<string>) {
+      if (action.payload === 'from lower to bigger') state.games?.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+      if (action.payload === 'from bigger to lower') state.games?.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    },
+    sortByPublishedDate(state, action: PayloadAction<string>) {
+      if (action.payload === 'Latest') state.games?.sort((a, b) => Date.parse(a.released) - Date.parse(b.released));
+      if (action.payload === 'Newest') state.games?.sort((a, b) => Date.parse(b.released) - Date.parse(a.released));
     },
     addToLikeList(state, action: PayloadAction<game>) {
       state.likeList!.push(action.payload);
@@ -66,5 +98,7 @@ export const {
   addToLikeList,
   deleteFromLikeList,
   setCurrentGame,
+  sortByPrice,
+  sortByPublishedDate,
 } = stateSlice.actions
 export default stateSlice.reducer

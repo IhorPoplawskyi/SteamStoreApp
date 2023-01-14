@@ -3,10 +3,10 @@ import { AppDispatch } from "./store";
 
 const options = {
     method: 'GET',
-    headers: {
-        'X-RapidAPI-Key': 'c47d6c8914msh594d30526273045p1ed380jsna2064a2ff076',
-        'X-RapidAPI-Host': 'steam2.p.rapidapi.com'
-    }
+	headers: {
+		'X-RapidAPI-Key': 'f0c05d51f5msh03556242bd12f44p164565jsn49ae83ae546b',
+		'X-RapidAPI-Host': 'steam2.p.rapidapi.com'
+	}
 };
 
 export const getGames = (name: string, page: number = 1) => async (dispatch: AppDispatch) => {
