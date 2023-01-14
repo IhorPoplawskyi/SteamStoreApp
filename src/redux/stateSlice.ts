@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-export interface response {
+const localStorageState = localStorage.getItem('LikedItems');
+
+export interface game {
   appId: string
   title: string
   url: string
@@ -11,19 +13,21 @@ export interface response {
 }
 
 interface IinitialState {
-  games: response[] | null
-  likeList: response[]
+  games: game[] | null
+  likeList: game[]
   isLoading: boolean
   gameName: string
   page: number
+  currentGame: game | null
 }
 
 const initState: IinitialState = {
   games: null,
-  likeList: [],
+  likeList: localStorageState === null ? [] : JSON.parse(localStorageState),
   isLoading: false,
   gameName: '',
   page: 1,
+  currentGame: null,
 }
 
 const stateSlice = createSlice({
@@ -33,8 +37,11 @@ const stateSlice = createSlice({
     setWordtoSearch(state, action: PayloadAction<string>) {
       state.gameName = action.payload
     },
-    setResults(state, action: PayloadAction<response[]>) {
+    setGamesResults(state, action: PayloadAction<game[]>) {
       state.games = action.payload
+    },
+    setCurrentGame(state, action: PayloadAction<game>) {
+      state.currentGame = action.payload
     },
     setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload
@@ -42,11 +49,11 @@ const stateSlice = createSlice({
     setPage(state, action: PayloadAction<number>) {
       state.page = action.payload
     },
-    addToLikeList(state, action: PayloadAction<response>) {
-      state.likeList.push(action.payload);
+    addToLikeList(state, action: PayloadAction<game>) {
+      state.likeList!.push(action.payload);
     },
     deleteFromLikeList(state, action: PayloadAction<string>) {
-      state.likeList = state.likeList.filter(el => el.appId !== action.payload);
+      state.likeList = state.likeList!.filter(el => el.appId !== action.payload);
     },
   }
 })
@@ -54,9 +61,10 @@ const stateSlice = createSlice({
 export const {
   setIsLoading,
   setPage,
-  setResults,
+  setGamesResults,
   setWordtoSearch,
   addToLikeList,
   deleteFromLikeList,
+  setCurrentGame,
 } = stateSlice.actions
 export default stateSlice.reducer

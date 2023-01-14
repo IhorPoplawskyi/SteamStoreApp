@@ -1,16 +1,18 @@
 import { FC } from 'react';
-import { Provider } from 'react-redux';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
+import { GamePage } from './components/GamePage/GamePage';
 import MainPage from './components/MainPage/MainPage';
-import { store } from './redux/store';
 
 const App: FC = () => {
   return (
-    <>
-    <Provider store={store}>
-      <MainPage />
-    </Provider>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='home/*' element={<MainPage />} />
+        <Route path='game/:id' element={<GamePage />} />
+        <Route path="*" element={<Navigate to={'/home'} replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

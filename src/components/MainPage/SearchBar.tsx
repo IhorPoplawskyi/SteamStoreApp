@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { getGames } from '../../redux/thunks';
 import style from '../MainPage/SearchBar.module.css';
 
-const SearchBar: FC = () => {
+const SearchBar: FC = (): JSX.Element => {
   const gameName = useAppSelector(state => state.stateSlice.gameName);
   const dispatch = useAppDispatch();
   const debouncedSearchTerm = useDebounce(gameName, 800)

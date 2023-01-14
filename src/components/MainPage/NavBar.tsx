@@ -1,8 +1,13 @@
 import { FC } from 'react'
-import styled from 'styled-components'
-import logo_steam from '../../icons/logo_steam.svg'
-import filter from '../../icons/filter.png'
+
 import SearchBar from './SearchBar'
+
+import styled from 'styled-components'
+
+import filter from '../../icons/filter.png'
+import logo_steam from '../../icons/logo_steam.svg'
+import { useAppSelector } from '../../redux/store'
+
 
 const StyledNavBar = styled.div`
     margin: 35px 35px 0px 35px;
@@ -52,25 +57,24 @@ const LikeList = styled.div`
 
 const StyledLogo = styled.div``
 
-const NavBar: FC = () => {
-    
+const NavBar: FC = (): JSX.Element => {
+    const ls = useAppSelector(state => state.stateSlice.likeList)
+
     return (
-        <>
-            <StyledNavBar>
-                <StyledLogo>
-                    <img src={logo_steam} alt='logo' />
-                </StyledLogo>
-                <SearchBar/>
-                <StyledFilter>
-                    <img src={filter} alt='filter'/>
-                </StyledFilter>
-                <StyledPriceFilter defaultValue={'Price'}>
-                    <option value='Price'>Price</option>
-                    <option value='PublishDate'>PublishDate</option>
-                </StyledPriceFilter>
-                <LikeList>Like list</LikeList>
-            </StyledNavBar>
-        </>
+        <StyledNavBar>
+            <StyledLogo>
+                <img src={logo_steam} alt='logo' />
+            </StyledLogo>
+            <SearchBar />
+            <StyledFilter onClick={() => console.log(ls)}>
+                <img src={filter} alt='filter' />
+            </StyledFilter>
+            <StyledPriceFilter defaultValue={'Price'}>
+                <option value='Price'>Price</option>
+                <option value='PublishDate'>PublishDate</option>
+            </StyledPriceFilter>
+            <LikeList>Like list</LikeList>
+        </StyledNavBar>
     )
 }
 

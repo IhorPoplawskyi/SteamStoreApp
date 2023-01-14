@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import stateSlice from "./stateSlice";
-import { response } from "./stateSlice";
+import { game } from "./stateSlice";
 
-function saveToLocalStorage(state: response[]) {
+function saveToLocalStorage(state: game[]) {
   try {
     const serialisedState = JSON.stringify(state);
     localStorage.setItem("LikedItems", serialisedState);

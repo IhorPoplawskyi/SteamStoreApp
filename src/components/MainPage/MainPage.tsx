@@ -30,24 +30,22 @@ const StyledContainerButton = styled.div`
     justify-content: center;
 `
 
-const MainPage: FC = () => {
+const MainPage: FC = (): JSX.Element => {
     const results = useAppSelector(state => state.stateSlice.games);
     const page = useAppSelector(state => state.stateSlice.page);
     const countPerPage = 4;
     const dispatch = useAppDispatch();
 
     return (
-        <>
-            <StyledMainPage>
-                <NavigationBar />
-                <StyledCardContainer>
-                    {results && results!.slice(0, page * countPerPage)?.map(el => <GameCard {...el} />)}
-                </StyledCardContainer>
-                {results && <StyledContainerButton>
-                    <StyledButton onClick={() => dispatch(setPage(page + 1))}>Show more</StyledButton>
-                </StyledContainerButton>}
-            </StyledMainPage>
-        </>
+        <StyledMainPage>
+            <NavigationBar />
+            <StyledCardContainer>
+                {results && results!.slice(0, page * countPerPage)?.map(el => <GameCard key={el.appId} {...el} />)}
+            </StyledCardContainer>
+            {results && <StyledContainerButton>
+                <StyledButton onClick={() =>  dispatch(setPage(page + 1)) }>Show more</StyledButton>
+            </StyledContainerButton>}
+        </StyledMainPage>
     )
 }
 
