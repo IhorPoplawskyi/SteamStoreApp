@@ -1,9 +1,14 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { response } from '../../redux/stateSlice';
+import { addToLikeList, response } from '../../redux/stateSlice';
 import heart from '../../icons/heart.png'
+import redHeart from '../../icons/redHeart.png'
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 
-const GameCard: FC<response> = ({ imgUrl, title, price, released }) => {
+const GameCard: FC<response> = (response) => {
+  const gamesResponse = useAppSelector(state => state.stateSlice.games)?.map(el => el.appId);
+  const likeList = useAppSelector(state => state.stateSlice.likeList).map(el => el.appId);
+
   const StyledGameCard = styled.div`
     min-height: 280px;
     width: 21%;
@@ -29,7 +34,6 @@ const GameCard: FC<response> = ({ imgUrl, title, price, released }) => {
     font-size: 22px;
     padding-left: 10px;
   `
-
   const StyledTitle = styled(StyledInfo)``
   const StyledReleased = styled(StyledInfo)`
     font-size: 16px;
@@ -54,18 +58,27 @@ const GameCard: FC<response> = ({ imgUrl, title, price, released }) => {
     background: #17323A;
     cursor: pointer;
   `
+  const StyledRedHeart = styled.img`
+    background: #17323A;
+    cursor: pointer;
+  `
+
+
+  const dispatch = useAppDispatch();
 
   return (
     <>
       <StyledGameCard>
         <StyledImgContainer>
-          <StyledImg src={imgUrl} alt='image' />
+          <StyledImg src={response.imgUrl} alt='image' />
         </StyledImgContainer>
-        <StyledTitle>{title.length > 80 ? title.slice(0, 79) + '...' : title}</StyledTitle>
-        <StyledReleased>{released}</StyledReleased>
+        <StyledTitle>{response.title.length > 80 ? response.title.slice(0, 79) + '...' : response.title}</StyledTitle>
+        <StyledReleased>{response.released}</StyledReleased>
         <StyledPriceAndLike>
-          <StyledPrice>{price}</StyledPrice>
-          <StyledHeart src={heart} onClick={() => {}}/>
+          <StyledPrice>{response.price}</StyledPrice>
+          {likeList?.includes(response.appId) ?
+            <StyledRedHeart src={redHeart} alt='img' /> :
+            <StyledHeart src={heart} alt='img' onClick={() => { dispatch(addToLikeList(response)) }} />}
         </StyledPriceAndLike>
       </StyledGameCard>
     </>

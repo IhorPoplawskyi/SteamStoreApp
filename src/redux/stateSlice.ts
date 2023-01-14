@@ -15,7 +15,7 @@ interface IinitialState {
   likeList: response[]
   isLoading: boolean
   gameName: string
-  page: string
+  page: number
 }
 
 const initState: IinitialState = {
@@ -23,7 +23,7 @@ const initState: IinitialState = {
   likeList: [],
   isLoading: false,
   gameName: '',
-  page: '1'
+  page: 1,
 }
 
 const stateSlice = createSlice({
@@ -39,7 +39,7 @@ const stateSlice = createSlice({
     setIsLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload
     },
-    setPage(state, action: PayloadAction<string>) {
+    setPage(state, action: PayloadAction<number>) {
       state.page = action.payload
     },
     addToLikeList(state, action: PayloadAction<response>) {
@@ -56,5 +56,7 @@ export const {
   setPage,
   setResults,
   setWordtoSearch,
+  addToLikeList,
+  deleteFromLikeList,
 } = stateSlice.actions
 export default stateSlice.reducer

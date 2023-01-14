@@ -9,7 +9,7 @@ const options = {
 	}
 };
 
-export const getGames = (name: string, page: string = '1') => async (dispatch: AppDispatch) => {
+export const getGames = (name: string, page: number = 1) => async (dispatch: AppDispatch) => {
     try {
         dispatch(setIsLoading(true))
         const response = await fetch(`https://steam2.p.rapidapi.com/search/${name}/page/${page}`, options)
