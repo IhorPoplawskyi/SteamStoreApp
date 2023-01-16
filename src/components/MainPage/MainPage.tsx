@@ -44,15 +44,18 @@ const StyledNotFound = styled.div`
 export const MainPage: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
 
-    const countPerPage = 4;
-    const isLoading = useAppSelector(state => state.stateSlice.isLoading);
     const offset = useAppSelector(state => state.stateSlice.offset);
     const results = useAppSelector(state => state.stateSlice.games);
+    const isLoading = useAppSelector(state => state.stateSlice.isLoading);
     const paginationResults = useAppSelector(state => state.stateSlice.paginationGames);
+
+    const countPerPage = 4;
+    const showLoadMore = offset * countPerPage < 25;
+    console.log(offset)
 
     useEffect(() => {
         if (results !== null && results.length !== 0) dispatch(setPaginationResults(results?.slice(0, countPerPage * offset)));
-    }, [results, offset])
+    }, [results, offset, dispatch])
 
     return (
         <StyledMainPage>
@@ -63,7 +66,7 @@ export const MainPage: FC = (): JSX.Element => {
             </StyledCardContainer>
             {results?.length === 0 ? <StyledNotFound>Not found games by this name!</StyledNotFound> : null}
             {paginationResults && <StyledContainerButton>
-                <StyledButton onClick={() =>  dispatch(setOffset(offset + 1)) }>Show more</StyledButton>
+                {showLoadMore && <StyledButton onClick={() =>  dispatch(setOffset(offset + 1)) }>Show more</StyledButton>}
             </StyledContainerButton>}
         </StyledMainPage>
     )

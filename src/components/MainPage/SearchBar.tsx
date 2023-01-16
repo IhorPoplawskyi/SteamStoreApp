@@ -5,7 +5,7 @@ import useDebounce from '../../hooks/useDebounce';
 import { FC, useEffect } from 'react';
 
 import { getGames } from '../../redux/thunks';
-import { setWordtoSearch } from '../../redux/stateSlice';
+import { setOffset, setWordtoSearch } from '../../redux/stateSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 export const SearchBar: FC = (): JSX.Element => {
@@ -14,9 +14,10 @@ export const SearchBar: FC = (): JSX.Element => {
   const debouncedSearchTerm = useDebounce(gameName, 800)
   useEffect(() => {
     if (debouncedSearchTerm) {
+      dispatch(setOffset(1))
       dispatch(getGames(debouncedSearchTerm))
     }
-  }, [debouncedSearchTerm])
+  }, [debouncedSearchTerm, dispatch])
 
   return (
     <input
