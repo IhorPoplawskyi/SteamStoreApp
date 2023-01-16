@@ -1,9 +1,9 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import styled from 'styled-components';
-import { setPage } from '../../redux/stateSlice';
+import { setOffset, setPaginationResults } from '../../redux/stateSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import GameCard from './GameCard';
-import NavigationBar from './NavBar';
+import { GameCard } from './GameCard';
+import { NavBar } from './NavBar';
 
 const StyledMainPage = styled.div`
     width: 100%;
@@ -30,23 +30,27 @@ const StyledContainerButton = styled.div`
     justify-content: center;
 `
 
-const MainPage: FC = (): JSX.Element => {
-    const results = useAppSelector(state => state.stateSlice.games);
-    const page = useAppSelector(state => state.stateSlice.page);
-    const countPerPage = 4;
+export const MainPage: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
+
+    const countPerPage = 4;
+    const offset = useAppSelector(state => state.stateSlice.offset);
+    const results = useAppSelector(state => state.stateSlice.games);
+    const paginationResults = useAppSelector(state => state.stateSlice.paginationGames);
+
+    useEffect(() => {
+        if (results !== null && results.length !== 0) dispatch(setPaginationResults(results?.slice(0, countPerPage * offset)));
+    }, [results, offset])
 
     return (
         <StyledMainPage>
-            <NavigationBar />
+            <NavBar />
             <StyledCardContainer>
-                {results && results!.slice(0, page * countPerPage)?.map(el => <GameCard key={el.appId} {...el} />)}
+                {paginationResults && paginationResults!.map(el => <GameCard key={el.appId} {...el} />)}
             </StyledCardContainer>
             {results && <StyledContainerButton>
-                <StyledButton onClick={() =>  dispatch(setPage(page + 1)) }>Show more</StyledButton>
+                <StyledButton onClick={() =>  dispatch(setOffset(offset + 1)) }>Show more</StyledButton>
             </StyledContainerButton>}
         </StyledMainPage>
     )
 }
-
-export default MainPage;

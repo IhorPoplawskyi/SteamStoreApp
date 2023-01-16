@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import styled from 'styled-components';
 
-import { addToLikeList, game } from '../../redux/stateSlice';
+import { addToLikeList, deleteFromLikeList, game } from '../../redux/stateSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 import heart from '../../icons/heart.png'
@@ -12,12 +12,27 @@ import { Link } from 'react-router-dom';
 
 export const StyledGameCard = styled.div`
     min-height: 280px;
-    width: 21%;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     background: #17323A;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    @media only screen and (max-width: 600px) {
+      width: 70%;
+    }
+    @media only screen and (min-width: 600px) {
+      width: 60%;
+    }
+    @media only screen and (min-width: 768px) {
+      width: 45%;
+    }
+    @media only screen and (min-width: 992px) {
+      width: 30%;
+    }
+    @media only screen and (min-width: 1200px) {
+      width: 21%;
+    }
   `
 export const StyledImgContainer = styled.div`
     height: 140px;
@@ -64,7 +79,7 @@ export const StyledRedHeart = styled.img`
     cursor: pointer;
   `
 
-const GameCard: FC<game> = (game): JSX.Element => {
+export const GameCard: FC<game> = (game): JSX.Element => {
   const likeList = useAppSelector(state => state.stateSlice.likeList).map(el => el.appId);
   const dispatch = useAppDispatch();
 
@@ -80,11 +95,9 @@ const GameCard: FC<game> = (game): JSX.Element => {
       <StyledPriceAndLike>
         <StyledPrice>{game.price}</StyledPrice>
         {likeList?.includes(game.appId) ?
-          <StyledRedHeart src={redHeart} alt='img' /> :
+          <StyledRedHeart src={redHeart} alt='img' onClick={() => dispatch(deleteFromLikeList(game.appId))} /> :
           <StyledHeart src={heart} alt='img' onClick={() => { dispatch(addToLikeList(game)) }} />}
       </StyledPriceAndLike>
     </StyledGameCard >
   )
 }
-
-export default GameCard;
