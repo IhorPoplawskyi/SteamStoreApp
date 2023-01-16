@@ -1,8 +1,10 @@
 import { FC } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
+
 import { GamePage } from './components/GamePage/GamePage';
 import { MainPage } from './components/MainPage/MainPage';
+
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
 
 const App: FC = () => {
   return (
