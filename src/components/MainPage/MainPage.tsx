@@ -50,8 +50,7 @@ export const MainPage: FC = (): JSX.Element => {
     const paginationResults = useAppSelector(state => state.stateSlice.paginationGames);
 
     const countPerPage = 4;
-    const showLoadMore = offset * countPerPage < 25;
-    console.log(offset)
+    const showLoadMore = results && offset * countPerPage < results?.length;
 
     useEffect(() => {
         if (results !== null && results.length !== 0) dispatch(setPaginationResults(results?.slice(0, countPerPage * offset)));
