@@ -1,9 +1,12 @@
-import { FC, useEffect } from 'react';
+import style from '../MainPage/SearchBar.module.css';
+
 import useDebounce from '../../hooks/useDebounce';
+
+import { FC, useEffect } from 'react';
+
+import { getGames } from '../../redux/thunks';
 import { setWordtoSearch } from '../../redux/stateSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { getGames } from '../../redux/thunks';
-import style from '../MainPage/SearchBar.module.css';
 
 export const SearchBar: FC = (): JSX.Element => {
   const gameName = useAppSelector(state => state.stateSlice.gameName);

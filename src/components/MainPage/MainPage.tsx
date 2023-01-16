@@ -1,9 +1,13 @@
-import { FC, useEffect } from 'react'
 import styled from 'styled-components';
-import { setOffset, setPaginationResults } from '../../redux/stateSlice';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { GameCard } from './GameCard';
+
 import { NavBar } from './NavBar';
+import { GameCard } from './GameCard';
+import { Preloader } from '../Preloader';
+
+import { FC, useEffect } from 'react'
+
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { setOffset, setPaginationResults } from '../../redux/stateSlice';
 
 const StyledMainPage = styled.div`
     width: 100%;
@@ -34,6 +38,7 @@ export const MainPage: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
 
     const countPerPage = 4;
+    const isLoading = useAppSelector(state => state.stateSlice.isLoading);
     const offset = useAppSelector(state => state.stateSlice.offset);
     const results = useAppSelector(state => state.stateSlice.games);
     const paginationResults = useAppSelector(state => state.stateSlice.paginationGames);
@@ -45,6 +50,7 @@ export const MainPage: FC = (): JSX.Element => {
     return (
         <StyledMainPage>
             <NavBar />
+            {isLoading && <Preloader /> }
             <StyledCardContainer>
                 {paginationResults && paginationResults!.map(el => <GameCard key={el.appId} {...el} />)}
             </StyledCardContainer>

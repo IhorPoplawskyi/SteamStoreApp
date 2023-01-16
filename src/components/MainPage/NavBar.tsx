@@ -1,13 +1,14 @@
+import styled from 'styled-components'
+
 import { FC } from 'react'
 
 import { SearchBar } from './SearchBar'
 
-import styled from 'styled-components'
+import { LikeList } from '../LikeList/LikeList'
 
 import logo_steam from '../../icons/logo_steam.svg'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { showLikeList, sortByPrice, sortByPublishedDate } from '../../redux/stateSlice'
-import { LikeList } from '../LikeList/LikeList'
 
 
 const StyledNavBar = styled.div`

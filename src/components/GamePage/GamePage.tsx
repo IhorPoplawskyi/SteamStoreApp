@@ -1,9 +1,12 @@
-import { FC, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { useAppDispatch, useAppSelector } from '../../redux/store'
+
+import { FC, useEffect } from 'react'
+
+import { useParams, Link } from 'react-router-dom'
+
 import { getProd } from '../../redux/thunks'
-import { Link } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
+
 
 const StyledWrapper = styled.div`
   display: flex;

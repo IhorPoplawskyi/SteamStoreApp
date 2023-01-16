@@ -1,13 +1,14 @@
-import { FC } from 'react';
-
 import styled from 'styled-components';
 
-import { addToLikeList, deleteFromLikeList, game } from '../../redux/stateSlice';
+import { FC } from 'react';
+
+import { Link } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { addToLikeList, deleteFromLikeList, game } from '../../redux/stateSlice';
 
 import heart from '../../icons/heart.png'
 import redHeart from '../../icons/redHeart.png'
-import { Link } from 'react-router-dom';
 
 
 export const StyledGameCard = styled.div`
