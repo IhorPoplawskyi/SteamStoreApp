@@ -34,6 +34,13 @@ const StyledContainerButton = styled.div`
     justify-content: center;
 `
 
+const StyledNotFound = styled.div`
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+`
+
 export const MainPage: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
 
@@ -54,7 +61,8 @@ export const MainPage: FC = (): JSX.Element => {
             <StyledCardContainer>
                 {paginationResults && paginationResults!.map(el => <GameCard key={el.appId} {...el} />)}
             </StyledCardContainer>
-            {results && <StyledContainerButton>
+            {results?.length === 0 ? <StyledNotFound>Not found games by this name!</StyledNotFound> : null}
+            {paginationResults && <StyledContainerButton>
                 <StyledButton onClick={() =>  dispatch(setOffset(offset + 1)) }>Show more</StyledButton>
             </StyledContainerButton>}
         </StyledMainPage>
