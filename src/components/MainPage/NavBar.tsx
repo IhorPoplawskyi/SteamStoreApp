@@ -113,7 +113,7 @@ export const NavBar: FC = (): JSX.Element => {
                 <option value='from lower to bigger'>from lower to bigger</option>
                 <option value='from bigger to lower'>from bigger to lower</option>
             </StyledPriceFilter>
-            <LikeListBtn onClick={() => dispatch(showLikeList())}>Like list</LikeListBtn>
+            <LikeListBtn onClick={() => dispatch(showLikeList(true))}>Like list</LikeListBtn>
             {visibleLikeList && <LikeList />}
         </StyledNavBar>
     )

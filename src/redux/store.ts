@@ -12,20 +12,8 @@ function saveToLocalStorage(state: game[]) {
   }
 }
 
-function loadFromLocalStorage() {
-  try {
-    const serialisedState = localStorage.getItem("LikedItems");
-    if (serialisedState === null) return undefined;
-    return JSON.parse(serialisedState);
-  } catch (e) {
-    console.warn(e);
-    return undefined;
-  }
-}
-
 const rootReducer = combineReducers({
   stateSlice,
-  preloadedState: loadFromLocalStorage(),
 })
 
 export const setupStore = () => {

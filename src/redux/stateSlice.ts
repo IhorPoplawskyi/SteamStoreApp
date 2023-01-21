@@ -2,6 +2,54 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const localStorageState = localStorage.getItem('LikedItems');
 
+const mockValue = [
+    {
+        "appId": "1174180",
+        "title": "Red Dead Redemption 2",
+        "url": "https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/?snr=1_7_7_151_150_1",
+        "imgUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/capsule_sm_120.jpg?t=1671485009",
+        "released": "5 Dec, 2019",
+        "reviewSummary": "Very Positive<br>89% of the 320,049 user reviews for this game are positive.",
+        "price": "                        59,99€19,79€                    "
+    },
+    {
+        "appId": "1404210",
+        "title": "Red Dead Online",
+        "url": "https://store.steampowered.com/app/1404210/Red_Dead_Online/?snr=1_7_7_151_150_1",
+        "imgUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/1404210/capsule_sm_120.jpg?t=1656615218",
+        "released": "1 Dec, 2020",
+        "reviewSummary": "Very Positive<br>84% of the 44,382 user reviews for this game are positive.",
+        "price": "                        19,99€9,99€                    "
+    },
+    {
+        "appId": "543440",
+        "title": "Cold Iron - Quick Draw Western Duels",
+        "url": "https://store.steampowered.com/app/543440/Cold_Iron__Quick_Draw_Western_Duels/?snr=1_7_7_151_150_1",
+        "imgUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/543440/capsule_sm_120.jpg?t=1667325972",
+        "released": "29 Jan, 2018",
+        "reviewSummary": "Mostly Positive<br>78% of the 37 user reviews for this game are positive.",
+        "price": "                        11,59€                    "
+    },
+    {
+        "appId": "755950",
+        "title": "Fantasy Quest Solitaire",
+        "url": "https://store.steampowered.com/app/755950/Fantasy_Quest_Solitaire/?snr=1_7_7_151_150_1",
+        "imgUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/755950/capsule_sm_120.jpg?t=1660765330",
+        "released": "16 Jan, 2018",
+        "reviewSummary": "Very Positive<br>81% of the 72 user reviews for this game are positive.",
+        "price": "                        8,99€                    "
+    },
+    {
+        "appId": "1197440",
+        "title": "Broken Spell 2",
+        "url": "https://store.steampowered.com/app/1197440/Broken_Spell_2/?snr=1_7_7_151_150_1",
+        "imgUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/1197440/capsule_sm_120.jpg?t=1667016654",
+        "released": "11 Feb, 2020",
+        "reviewSummary": "Mostly Negative<br>36% of the 111 user reviews for this game are positive.",
+        "price": "                        8,19€                    "
+    }
+]
+
 export interface game {
   appId: string
   title: string
@@ -48,7 +96,7 @@ interface IinitialState {
 }
 
 const initState: IinitialState = {
-  games: null,
+  games: mockValue,
   likeList: localStorageState === null ? [] : JSON.parse(localStorageState),
   isLoading: false,
   gameName: '',
@@ -97,8 +145,8 @@ const stateSlice = createSlice({
     deleteFromLikeList(state, action: PayloadAction<string>) {
       state.likeList = state.likeList!.filter(el => el.appId !== action.payload);
     },
-    showLikeList(state) {
-      state.showLikeList = !state.showLikeList;
+    showLikeList(state, action: PayloadAction<boolean>) {
+      state.showLikeList = action.payload;
     },
   }
 })
