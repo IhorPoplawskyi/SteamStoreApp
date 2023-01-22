@@ -4,8 +4,9 @@ import { FC } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { gameInfo } from '../../redux/stateSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { addToLikeList, deleteFromLikeList, game } from '../../redux/stateSlice';
+import { addToLikeList, deleteFromLikeList } from '../../redux/likeListSlice';
 
 import heart from '../../icons/heart.png'
 import redHeart from '../../icons/redHeart.png'
@@ -16,7 +17,7 @@ export const StyledGameCard = styled.div`
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    background: #17323A;
+    background: #1B2838;
     margin-bottom: 8px;
     margin-top: 8px;
     @media only screen and (max-width: 600px) {
@@ -38,7 +39,7 @@ export const StyledGameCard = styled.div`
 export const StyledImgContainer = styled.div`
     height: 140px;
     border-radius: 10px;
-    background: #17323A;
+    background: #1B2838;
   `
 export const StyledImg = styled.img`
     background-size: contain;
@@ -46,7 +47,7 @@ export const StyledImg = styled.img`
     border-radius: 10px;
   `
 export const StyledInfo = styled.div`
-    background: #17323A;
+    background: #1B2838;
     color: white;
     font-size: 22px;
     padding-left: 10px;
@@ -64,7 +65,7 @@ export const StyledPriceAndLike = styled.div`
     border-radius: 10px;
     padding-right: 10px;
     padding-bottom: 5px;
-    background: #17323A;
+    background: #1B2838;
     flex-grow: 1;
   `
 export const StyledPrice = styled(StyledInfo)`
@@ -72,16 +73,16 @@ export const StyledPrice = styled(StyledInfo)`
     margin-top: 10px;
   `
 export const StyledHeart = styled.img`
-    background: #17323A;
+    background: #1B2838;
     cursor: pointer;
   `
 export const StyledRedHeart = styled.img`
-    background: #17323A;
+    background: #1B2838;
     cursor: pointer;
   `
 
-export const GameCard: FC<game> = (game): JSX.Element => {
-  const likeList = useAppSelector(state => state.stateSlice.likeList).map(el => el.appId);
+export const GameCard: FC<gameInfo> = (game): JSX.Element => {
+  const likeList = useAppSelector(state => state.likeListSlice.likeList).map(el => el.appId);
   const dispatch = useAppDispatch();
 
   return (

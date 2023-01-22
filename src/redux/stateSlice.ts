@@ -50,7 +50,28 @@ const mockValue = [
     }
 ]
 
-export interface game {
+const curGame = {
+  "imgUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg?t=1671485009",
+  "title": "Red Dead Redemption 2",
+  "developer": {
+      "link": "https://store.steampowered.com/developer/rockstargames?snr=1_5_9__400",
+      "name": "Rockstar Games"
+  },
+  "publisher": {
+      "link": "https://store.steampowered.com/publisher/rockstargames?snr=1_5_9__400",
+      "name": "Rockstar Games"
+  },
+  "released": "5 Dec, 2019",
+  "description": "Winner of over 175 Game of the Year Awards and recipient of over 250 perfect scores, RDR2 is the epic tale of outlaw Arthur Morgan and the infamous Van der Linde gang, on the run across America at the dawn of the modern age. Also includes access to the shared living world of Red Dead Online.",
+  "tags": [],
+  "allReviews": {
+    "summary": "Very Positive"
+  },
+  "price": "19,79€",
+  "DLCs": []
+}
+
+export interface gameInfo {
   appId: string
   title: string
   url: string
@@ -73,37 +94,41 @@ interface singleGame {
   }
   released: string
   description: string
+  tags: {
+    url: string, name: string
+  } []
   allReviews: {
-    summary: string
-    reviewCount: string
-    ratingValue: string
-    bestRating: string
-    worstRating: string
+    summary?: string
+    reviewCount?: string
+    ratingValue?: string
+    bestRating?: string
+    worstRating?: string
   }
   price: string
-  DLCs: string
+  DLCs: {
+    appId: string
+    url: string
+    name: string
+    price: string
+  }[]
 }
 
 interface IinitialState {
-  games: game[] | null
-  likeList: game[]
+  games: gameInfo[] | null
   isLoading: boolean
   gameName: string
   offset: number
   currentGame: singleGame | null
-  paginationGames: game[] | null
-  showLikeList: boolean
+  paginationGames: gameInfo[] | null
 }
 
 const initState: IinitialState = {
   games: mockValue,
-  likeList: localStorageState === null ? [] : JSON.parse(localStorageState),
   isLoading: false,
   gameName: '',
   offset: 1,
-  currentGame: null,
+  currentGame: curGame,
   paginationGames: null,
-  showLikeList: false,
 }
 
 const stateSlice = createSlice({
@@ -113,10 +138,10 @@ const stateSlice = createSlice({
     setWordtoSearch(state, action: PayloadAction<string>) {
       state.gameName = action.payload
     },
-    setGamesResults(state, action: PayloadAction<game[]>) {
+    setGamesResults(state, action: PayloadAction<gameInfo[]>) {
       state.games = action.payload
     },
-    setPaginationResults(state, action: PayloadAction<game[]>) {
+    setPaginationResults(state, action: PayloadAction<gameInfo[]>) {
       state.paginationGames = action.payload
     },
     setCurrentGame(state, action: PayloadAction<singleGame>) {
@@ -139,15 +164,6 @@ const stateSlice = createSlice({
       if (action.payload === 'Latest') state.paginationGames?.sort((a, b) => Date.parse(a.released) - Date.parse(b.released));
       if (action.payload === 'Newest') state.paginationGames?.sort((a, b) => Date.parse(b.released) - Date.parse(a.released));
     },
-    addToLikeList(state, action: PayloadAction<game>) {
-      state.likeList!.push(action.payload);
-    },
-    deleteFromLikeList(state, action: PayloadAction<string>) {
-      state.likeList = state.likeList!.filter(el => el.appId !== action.payload);
-    },
-    showLikeList(state, action: PayloadAction<boolean>) {
-      state.showLikeList = action.payload;
-    },
   }
 })
 
@@ -157,11 +173,8 @@ export const {
   setGamesResults,
   setPaginationResults,
   setWordtoSearch,
-  addToLikeList,
-  deleteFromLikeList,
   setCurrentGame,
   sortByPrice,
   sortByPublishedDate,
-  showLikeList,
 } = stateSlice.actions
 export default stateSlice.reducer

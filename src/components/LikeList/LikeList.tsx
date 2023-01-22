@@ -1,13 +1,16 @@
-import sad from './sad.png'
-
 import styled from 'styled-components';
+
+import sad from './sad.png'
 
 import React from 'react'
 
 import { LikeListItem } from '../LikeListItem';
 
-import { showLikeList } from '../../redux/stateSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store'
+
+import { deleteAllFromLikeList, showLikeList } from '../../redux/likeListSlice';
+
+
 
 const StyledLikeListWrapper = styled.section`
     position: fixed;
@@ -64,7 +67,7 @@ const StyledCloseLikeListButton = styled.button`
     font-size: 24px;
     cursor: pointer;
     &::before {
-        content: 'X';
+        content: "X";
         color: grey;
         background: white;
     }
@@ -127,8 +130,9 @@ const StyledLikeListZeroItemsText = styled.div`
 `
 
 export const LikeList: React.FC = (): JSX.Element => {
-    const likeList = useAppSelector(state => state.stateSlice.likeList);
+    const likeList = useAppSelector(state => state.likeListSlice.likeList);
     const dispatch = useAppDispatch();
+
     return (
         <StyledLikeListWrapper onClick={() => dispatch(showLikeList(false))}>
             <StyledLikeListContainer onClick={(e) => e.stopPropagation()}>
@@ -139,7 +143,7 @@ export const LikeList: React.FC = (): JSX.Element => {
                 {likeList.length !== 0 ?
                     <StyledLikeListContent>
                         <StyledDeleteAllItems>
-                            <StyledDeleteAllItemsBtn>Delete all</StyledDeleteAllItemsBtn>
+                            <StyledDeleteAllItemsBtn onClick={() => dispatch(deleteAllFromLikeList())}>Delete all</StyledDeleteAllItemsBtn>
                         </StyledDeleteAllItems>
                         {likeList.map(el => <LikeListItem key={el.appId} {...el} />)}
                     </StyledLikeListContent> :

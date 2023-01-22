@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import  likeListSlice  from "./likeListSlice";
 import stateSlice from "./stateSlice";
-import { game } from "./stateSlice";
+import { gameInfo } from "./stateSlice";
 
-function saveToLocalStorage(state: game[]) {
+function saveToLocalStorage(state: gameInfo[]) {
   try {
     const serialisedState = JSON.stringify(state);
     localStorage.setItem("LikedItems", serialisedState);
@@ -14,6 +15,7 @@ function saveToLocalStorage(state: game[]) {
 
 const rootReducer = combineReducers({
   stateSlice,
+  likeListSlice,
 })
 
 export const setupStore = () => {
@@ -24,7 +26,7 @@ export const setupStore = () => {
 
 export const store = setupStore();
 
-store.subscribe(() => saveToLocalStorage(store.getState().stateSlice.likeList));
+store.subscribe(() => saveToLocalStorage(store.getState().likeListSlice.likeList));
 
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>

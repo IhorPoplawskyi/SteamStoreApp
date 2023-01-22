@@ -7,8 +7,10 @@ import { SearchBar } from './SearchBar'
 import { LikeList } from '../LikeList/LikeList'
 
 import logo_steam from '../../icons/logo_steam.svg'
+import { showLikeList } from '../../redux/likeListSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
-import { showLikeList, sortByPrice, sortByPublishedDate } from '../../redux/stateSlice'
+import { sortByPrice, sortByPublishedDate } from '../../redux/stateSlice'
+
 
 
 const StyledNavBar = styled.div`
@@ -97,7 +99,7 @@ const StyledLogo = styled.img``
 
 export const NavBar: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
-    const visibleLikeList = useAppSelector(state => state.stateSlice.showLikeList);
+    const visibleLikeList = useAppSelector(state => state.likeListSlice.showLikeList);
 
     return (
         <StyledNavBar>
