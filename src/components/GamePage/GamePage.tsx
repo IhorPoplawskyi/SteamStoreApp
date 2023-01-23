@@ -67,19 +67,21 @@ const StyledDescription = styled.div`
   padding: 5px 0px 0px 10px;
 `
 
-const StyledBlueTextBlock = styled.div`
-  color: #00BFFF;
+const StyledShortInfoBlock = styled.span`
+  color: #556772;
   font-size: 13px;
   background: #1B2838;
   padding: 7px 0px 0px 10px;
 `
 
-const StyledReviews = styled(StyledBlueTextBlock)``
-const StyledReleased = styled(StyledBlueTextBlock)``
-const StyledPrice = styled(StyledBlueTextBlock)``
+const StyledReviews = styled(StyledShortInfoBlock)``
+const StyledReleased = styled(StyledShortInfoBlock)``
+const StyledPrice = styled(StyledShortInfoBlock)``
+const StyledBlueText = styled(StyledShortInfoBlock)`
+  color: #00BFFF;
+`
 
 const StyledDLCBlock = styled.div`
-  height: 70px;
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
@@ -114,9 +116,9 @@ export const GamePage: FC = (): JSX.Element => {
         <StyledMain>
           <StyledTitle>{currentGame?.title}</StyledTitle>
           <StyledDescription>{currentGame?.description}</StyledDescription>
-          <StyledReviews>REVIEWS: {currentGame?.allReviews.summary}</StyledReviews>
-          <StyledReleased>RELEASED: {currentGame?.released}</StyledReleased>
-          <StyledPrice>PRICE: {currentGame?.price}</StyledPrice>
+          <StyledReviews>REVIEWS:<StyledBlueText>{currentGame?.allReviews.summary}</StyledBlueText></StyledReviews>
+          <StyledReleased>RELEASED:<StyledBlueText>{currentGame?.released}</StyledBlueText></StyledReleased>
+          <StyledPrice>PRICE:<StyledBlueText>{currentGame?.price}</StyledBlueText> </StyledPrice>
           <button onClick={() => setShowDlc(showDlc => !showDlc)}>DLCs</button>
           {showDlc && <StyledDLCBlock>
             {currentGame?.DLCs.map(el => <StyledDLCItem><img title={el.name} src={currentGame.imgUrl} />{el.name}</StyledDLCItem>)}
