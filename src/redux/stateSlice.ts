@@ -132,13 +132,13 @@ const stateSlice = createSlice({
     sortByPrice(state, action: PayloadAction<string>) {
       state.paginationGames?.map(game => isNaN(parseFloat(game.price)) ? game.price = '0' : game);
       state.paginationGames?.map(game => game.price.replace(',', '.'))
-      if (action.payload === 'from lower to bigger') state.paginationGames?.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-      if (action.payload === 'from bigger to lower') state.paginationGames?.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+      if (action.payload === 'low high') state.paginationGames?.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+      if (action.payload === 'high low') state.paginationGames?.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
       state.paginationGames?.map(game => game.price === '0' ? game.price = 'Free to play' : game);
     },
     sortByPublishedDate(state, action: PayloadAction<string>) {
-      if (action.payload === 'Latest') state.paginationGames?.sort((a, b) => Date.parse(a.released) - Date.parse(b.released));
-      if (action.payload === 'Newest') state.paginationGames?.sort((a, b) => Date.parse(b.released) - Date.parse(a.released));
+      if (action.payload === 'latest') state.paginationGames?.sort((a, b) => Date.parse(a.released) - Date.parse(b.released));
+      if (action.payload === 'newest') state.paginationGames?.sort((a, b) => Date.parse(b.released) - Date.parse(a.released));
     },
   }
 })

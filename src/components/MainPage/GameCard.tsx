@@ -11,52 +11,51 @@ import { addToLikeList, deleteFromLikeList } from '../../redux/likeListSlice';
 import heart from '../../icons/heart.png'
 import redHeart from '../../icons/redHeart.png'
 
-
 export const StyledGameCard = styled.div`
-    min-height: 280px;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    background: #1B2838;
-    margin-bottom: 8px;
-    margin-top: 8px;
+    background: url('/background_spotlight.jpg') no-repeat;
+    background-size: cover;
+    box-shadow: 1px 1px 0.5px black;
     @media only screen and (max-width: 600px) {
-      width: 70%;
+      width: 100%;
     }
     @media only screen and (min-width: 600px) {
-      width: 60%;
+      width: calc(50% - 7px);
     }
     @media only screen and (min-width: 768px) {
-      width: 45%;
+      width: calc(50% - 7px);
     }
     @media only screen and (min-width: 992px) {
-      width: 30%;
+      width: calc(33.3333% - 7px);
     }
     @media only screen and (min-width: 1200px) {
-      width: 21%;
+      width: calc(33.3333% - 7px);
     }
   `
 export const StyledImgContainer = styled.div`
-    height: 140px;
-    border-radius: 10px;
-    background: #1B2838;
+    height: 160px;
   `
 export const StyledImg = styled.img`
     background-size: contain;
     width: 100%;
-    border-radius: 10px;
+    height: 100%;
   `
 export const StyledInfo = styled.div`
-    background: #1B2838;
     color: white;
     font-size: 22px;
     padding-left: 10px;
+    background: transparent;
   `
-export const StyledTitle = styled(StyledInfo)``
+export const StyledTitle = styled(StyledInfo)`
+  flex-grow: 1;
+`
 export const StyledReleased = styled(StyledInfo)`
     font-size: 16px;
     margin-top: 10px;
+    color: #acdbf5;
     display: flex;
+    background: transparent;
   `
 export const StyledPriceAndLike = styled.div`
     display: flex;
@@ -65,20 +64,23 @@ export const StyledPriceAndLike = styled.div`
     border-radius: 10px;
     padding-right: 10px;
     padding-bottom: 5px;
-    background: #1B2838;
-    flex-grow: 1;
+    background: transparent;
   `
 export const StyledPrice = styled(StyledInfo)`
     font-size: 16px;
     margin-top: 10px;
+    background: transparent;
+    color: #acdbf5;
   `
 export const StyledHeart = styled.img`
     background: #1B2838;
     cursor: pointer;
+    background: transparent;
   `
 export const StyledRedHeart = styled.img`
     background: #1B2838;
     cursor: pointer;
+    background: transparent;
   `
 
 export const GameCard: FC<gameInfo> = (game): JSX.Element => {

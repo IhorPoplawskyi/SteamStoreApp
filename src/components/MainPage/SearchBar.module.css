@@ -1,12 +1,11 @@
 .SearchBar {
-  height: 35px;
+  height: 40px;
   outline: none;
   border: none;
   border-radius: 10px;
   background: #837F7F;
   color: white;
-  padding-left: 15px;
-  margin-top: 5px;
+  padding-left: 10px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -26,12 +25,12 @@
 }
 @media only screen and (min-width: 992px) {
   .SearchBar {
-    width: 40%;
+    width: 55%;
   }
 }
 @media only screen and (min-width: 1200px) {
   .SearchBar {
-    width: 40%;
+    width: 55%;
   }
 }
 

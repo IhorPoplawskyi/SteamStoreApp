@@ -11,13 +11,31 @@ import { setOffset, setPaginationResults } from '../../redux/stateSlice';
 
 const StyledMainPage = styled.div`
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 const StyledCardContainer = styled.div`
-    margin-top: 60px;
+    margin-top: 30px;
+    gap: 10px;
     display: flex;
-    gap: 15px;
-    justify-content: center;
     flex-wrap: wrap;
+    @media only screen and (max-width: 600px) {
+      width: 90%;
+    }
+    @media only screen and (min-width: 600px) {
+      width: 90%;
+    }
+    @media only screen and (min-width: 768px) {
+      width: 80%;
+    }
+    @media only screen and (min-width: 992px) {
+      width: 70%;
+    }
+    @media only screen and (min-width: 1200px) {
+        width: 60%;
+    }
 `
 
 const StyledButton = styled.button`
@@ -49,7 +67,7 @@ export const MainPage: FC = (): JSX.Element => {
     const isLoading = useAppSelector(state => state.stateSlice.isLoading);
     const paginationResults = useAppSelector(state => state.stateSlice.paginationGames);
 
-    const countPerPage = 4;
+    const countPerPage = 6;
     const showLoadMore = results && offset * countPerPage < results?.length;
 
     useEffect(() => {

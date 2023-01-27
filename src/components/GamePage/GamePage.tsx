@@ -129,7 +129,6 @@ const StyledDLCBlock = styled.div`
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
-  min-height: 180px;
   margin-top: 2px;
   padding: 2px;
   background: #1B2838;
