@@ -17,6 +17,7 @@ export const StyledGameCard = styled.div`
     background: url('/background_spotlight.jpg') no-repeat;
     background-size: cover;
     box-shadow: 1px 1px 0.5px black;
+    height: 330px;
     @media only screen and (max-width: 600px) {
       width: 100%;
     }
@@ -100,7 +101,7 @@ export const GameCard: FC<gameInfo> = (game): JSX.Element => {
         <StyledPrice>{game.price}</StyledPrice>
         {likeList?.includes(game.appId) ?
           <StyledRedHeart src={redHeart} alt='img' onClick={() => dispatch(deleteFromLikeList(game.appId))} /> :
-          <StyledHeart src={heart} alt='img' onClick={() => { dispatch(addToLikeList(game)) }} />}
+          <StyledHeart src={heart} alt='img' title='add to like list' onClick={() => { dispatch(addToLikeList(game)) }} />}
       </StyledPriceAndLike>
     </StyledGameCard >
   )

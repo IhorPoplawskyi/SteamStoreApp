@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { NavBar } from './NavBar';
+import { Footer } from './Footer';
 import { GameCard } from './GameCard';
 import { Preloader } from '../Preloader';
 
@@ -11,16 +12,22 @@ import { setOffset, setPaginationResults } from '../../redux/stateSlice';
 
 const StyledMainPage = styled.div`
     width: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: rgb(4,79,110);
+    background: linear-gradient(180deg, rgba(4,79,110,1) 32%, rgba(1,91,120,1) 60%, rgba(33,115,126,1) 87%);
 `
 const StyledCardContainer = styled.div`
-    margin-top: 30px;
+    margin-top: 90px;
     gap: 10px;
     display: flex;
     flex-wrap: wrap;
+    flex-grow: 1;
+    padding-bottom: 20px;
+    background: transparent;
     @media only screen and (max-width: 600px) {
       width: 90%;
     }
@@ -67,7 +74,7 @@ export const MainPage: FC = (): JSX.Element => {
     const isLoading = useAppSelector(state => state.stateSlice.isLoading);
     const paginationResults = useAppSelector(state => state.stateSlice.paginationGames);
 
-    const countPerPage = 6;
+    const countPerPage = 3;
     const showLoadMore = results && offset * countPerPage < results?.length;
 
     useEffect(() => {
@@ -85,6 +92,7 @@ export const MainPage: FC = (): JSX.Element => {
             {paginationResults && <StyledContainerButton>
                 {showLoadMore && <StyledButton onClick={() =>  dispatch(setOffset(offset + 1)) }>Show more</StyledButton>}
             </StyledContainerButton>}
+            <Footer />
         </StyledMainPage>
     )
 }

@@ -12,14 +12,17 @@ import { showLikeList } from '../../redux/likeListSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { sortByPrice, sortByPublishedDate } from '../../redux/stateSlice'
 
-
-
 const StyledNavBar = styled.div`
-    width: 60%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 0.5%;
-    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
 `
 
 const StyledFilters = styled.select`
@@ -43,7 +46,7 @@ const StyledFilters = styled.select`
         width: 14%;
       }
       @media only screen and (min-width: 1200px) {
-        width: 10%;
+        width: 5%;
       }
 `
 
@@ -52,12 +55,12 @@ const StyledPublisedFilter = styled(StyledFilters)``
 const StyledPriceFilter = styled(StyledFilters)``
 
 const LikeListBtn = styled.img`
-    width: 5%;
+    width: 3%;
     cursor: pointer;
 `
 
 const StyledLogo = styled.img`
-    width: 20%;
+    width: 10%;
 `
 
 export const NavBar: FC = (): JSX.Element => {

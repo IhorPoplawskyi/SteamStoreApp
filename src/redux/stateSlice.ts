@@ -99,7 +99,7 @@ interface IinitialState {
 }
 
 const initState: IinitialState = {
-  games: mockValue,
+  games: null,
   isLoading: false,
   gameName: '',
   offset: 1,
