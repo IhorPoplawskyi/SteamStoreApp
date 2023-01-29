@@ -15,7 +15,7 @@ export const Preloader = styled.div`
   position: absolute;
   left: 50%;
   top: 25%;
-  
+
   border-top: 2px solid grey;
   border-right: 2px solid grey;
   border-bottom: 2px solid grey;

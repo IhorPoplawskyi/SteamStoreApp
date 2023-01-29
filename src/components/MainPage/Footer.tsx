@@ -1,46 +1,76 @@
-import { FC } from 'react'
-import styled from 'styled-components'
+import { FC } from "react";
+import styled from "styled-components";
 
-import linkedin from '../../icons/linkedin.png'
-import telegram from '../../icons/telegram.png'
-import github from '../../icons/github.png'
+import linkedin from "../../icons/linkedin.png";
+import telegram from "../../icons/telegram.png";
+import github from "../../icons/github.png";
+import gmail from "../../icons/gmail.png";
 
 const StyledFooter = styled.footer`
-    display: flex;
-    align-items: center;
-    background: #171A21;
-    height: 100px;
-    width: 100%;
-`
+  display: flex;
+  align-items: center;
+  background: #171a21;
+  height: 60px;
+  width: 100%;
+  justify-content: space-around;
+`;
 
 const StyledIconsBlock = styled.section`
-    display: flex;
-`
+  display: flex;
+`;
 
-const StyledIcon = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    border: 1px solid white;
-    border-radius: 100%;
-    cursor: pointer;
-    transition: background 0.2s ease-out 50ms;
-    &:hover {
-        background: blue;
-    }
-`
+const StyledIcon = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: background 0.2s ease-out 50ms;
+  &:hover {
+    background: orange;
+  }
+`;
+
+const StyledImg = styled.img`
+  background: transparent;
+`;
+
+const StyledInfo = styled.p`
+  color: white;
+  font-size: 13px;
+`;
+
+const StyledName = styled.a`
+  text-decoration: none;
+  color: orange;
+  cursor: pointer;
+`;
 
 export const Footer: FC = (): JSX.Element => {
-    return (
-       <StyledFooter>
-           <StyledIconsBlock>
-                <StyledIcon><img style={{background: 'transparent'}} src={linkedin} alt='linkedin'/></StyledIcon>
-                <StyledIcon><img style={{background: 'transparent'}} src={github} alt='github'/></StyledIcon>
-                <StyledIcon><img style={{background: 'transparent'}} src={telegram} alt='telegram'/></StyledIcon>
-                <StyledIcon><img style={{background: 'transparent'}} src={linkedin} alt='linkedin'/></StyledIcon>
-           </StyledIconsBlock>
-       </StyledFooter>
-    )
-}
+  return (
+    <StyledFooter>
+      <StyledInfo>
+        Created by <StyledName>Ihor Poplawskyi</StyledName>
+      </StyledInfo>
+      <StyledIconsBlock>
+        <StyledIcon
+          href="https://www.linkedin.com/in/ihor-poplawskyi-867a20254/"
+          target="_blank"
+        >
+          <StyledImg src={linkedin} alt="linkedin" />
+        </StyledIcon>
+        <StyledIcon href="https://github.com/IhorPoplawskyi" target="_blank">
+          <StyledImg src={github} alt="github" />
+        </StyledIcon>
+        <StyledIcon href="https://t.me/Greg_vishki" target="_blank">
+          <StyledImg src={telegram} alt="telegram" />
+        </StyledIcon>
+        <StyledIcon href="mailto:poplawskyiihor@gmail.com" target="_blank">
+          <StyledImg src={gmail} alt="gmail" />
+        </StyledIcon>
+      </StyledIconsBlock>
+    </StyledFooter>
+  );
+};

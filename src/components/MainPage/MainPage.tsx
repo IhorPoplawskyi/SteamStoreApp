@@ -1,98 +1,99 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { NavBar } from './NavBar';
-import { Footer } from './Footer';
-import { GameCard } from './GameCard';
-import { Preloader } from '../Preloader';
+import { NavBar } from "./NavBar";
+import { Footer } from "./Footer";
+import { GameCard } from "./GameCard";
+import { Preloader } from "../Preloader";
 
-import { FC, useEffect } from 'react'
+import { FC } from "react";
 
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { setOffset, setPaginationResults } from '../../redux/stateSlice';
+import { useAppSelector } from "../../redux/store";
+
+import controller from '../../icons/controller.png'
+import brokenController from '../../icons/brokenController.png'
 
 const StyledMainPage = styled.div`
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: rgb(4,79,110);
-    background: linear-gradient(180deg, rgba(4,79,110,1) 32%, rgba(1,91,120,1) 60%, rgba(33,115,126,1) 87%);
-`
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgb(4, 79, 110);
+  background: linear-gradient(
+    180deg,
+    rgba(4, 79, 110, 1) 32%,
+    rgba(1, 91, 120, 1) 60%,
+    rgba(33, 115, 126, 1) 87%
+  );
+`;
 const StyledCardContainer = styled.div`
-    margin-top: 90px;
-    gap: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-grow: 1;
-    padding-bottom: 20px;
+  margin-top: 90px;
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  padding-bottom: 20px;
+  background: transparent;
+  @media only screen and (max-width: 600px) {
+    width: 90%;
+  }
+  @media only screen and (min-width: 600px) {
+    width: 90%;
+  }
+  @media only screen and (min-width: 768px) {
+    width: 80%;
+  }
+  @media only screen and (min-width: 992px) {
+    width: 70%;
+  }
+  @media only screen and (min-width: 1200px) {
+    width: 60%;
+  }
+`;
+
+const StyledResultsInfo = styled.div`
+  color: white;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25vh;
+  width: 70%;
+`;
+
+const StyledResultsInfoImg = styled.img`
     background: transparent;
-    @media only screen and (max-width: 600px) {
-      width: 90%;
-    }
-    @media only screen and (min-width: 600px) {
-      width: 90%;
-    }
-    @media only screen and (min-width: 768px) {
-      width: 80%;
-    }
-    @media only screen and (min-width: 992px) {
-      width: 70%;
-    }
-    @media only screen and (min-width: 1200px) {
-        width: 60%;
-    }
-`
-
-const StyledButton = styled.button`
-    width: 90px;
-    height: 45px;
-    border: none;
-    background: white;
-    border-radius: 10px;
-    outline: none;
-    cursor: pointer;
-`
-const StyledContainerButton = styled.div`
-    display: flex;
-    justify-content: center;
-`
-
-const StyledNotFound = styled.div`
-    color: white;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
+    max-width: 256px;
 `
 
 export const MainPage: FC = (): JSX.Element => {
-    const dispatch = useAppDispatch();
+  const results = useAppSelector((state) => state.stateSlice.games);
+  const status = useAppSelector((state) => state.stateSlice.status);
+  console.log(status);
 
-    const offset = useAppSelector(state => state.stateSlice.offset);
-    const results = useAppSelector(state => state.stateSlice.games);
-    const isLoading = useAppSelector(state => state.stateSlice.isLoading);
-    const paginationResults = useAppSelector(state => state.stateSlice.paginationGames);
-
-    const countPerPage = 3;
-    const showLoadMore = results && offset * countPerPage < results?.length;
-
-    useEffect(() => {
-        if (results !== null && results.length !== 0) dispatch(setPaginationResults(results?.slice(0, countPerPage * offset)));
-    }, [results, offset, dispatch])
-
-    return (
-        <StyledMainPage>
-            <NavBar />
-            {isLoading && <Preloader /> }
-            <StyledCardContainer>
-                {paginationResults && paginationResults!.map(el => <GameCard key={el.appId} {...el} />)}
-            </StyledCardContainer>
-            {results?.length === 0 ? <StyledNotFound>Not found games by this name!</StyledNotFound> : null}
-            {paginationResults && <StyledContainerButton>
-                {showLoadMore && <StyledButton onClick={() =>  dispatch(setOffset(offset + 1)) }>Show more</StyledButton>}
-            </StyledContainerButton>}
-            <Footer />
-        </StyledMainPage>
-    )
-}
+  return (
+    <StyledMainPage>
+      <NavBar />
+      {status === "init" && (
+        <StyledResultsInfo>
+          This is a service where you can find games and information about these games on Steam store. To start,
+          please enter an game name in search.
+          <StyledResultsInfoImg src={controller} alt='controller'/>
+        </StyledResultsInfo>
+      )}
+      {status === "loading" && <Preloader />}
+      {status === "success" && results?.length === 0 && (
+        <StyledResultsInfo>Nothing found, check that the game name is correct and try again!
+            <StyledResultsInfoImg src={brokenController} alt="broken controller"/>
+        </StyledResultsInfo>
+      )}
+      <StyledCardContainer>
+        {results && results!.map((el) => <GameCard key={el.appId} {...el} />)}
+      </StyledCardContainer>
+      <Footer />
+    </StyledMainPage>
+  );
+};

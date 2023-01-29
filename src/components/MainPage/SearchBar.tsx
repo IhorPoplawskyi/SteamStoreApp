@@ -1,29 +1,63 @@
-import style from '../MainPage/SearchBar.module.css';
+import useDebounce from "../../hooks/useDebounce";
 
-import useDebounce from '../../hooks/useDebounce';
+import { FC, useEffect, useState, ChangeEvent } from "react";
 
-import { FC, useEffect } from 'react';
+import styled from "styled-components";
 
-import { getGames } from '../../redux/thunks';
-import { setOffset, setWordtoSearch } from '../../redux/stateSlice';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
+const StyledSearchBar = styled.input`
+  height: 40px;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  background: #837f7f;
+  color: white;
+  padding-left: 10px;
+  &::placeholder {
+    color: white;
+  }
+  @media only screen and (max-width: 600px) {
+    width: 95%;
+  }
+  @media only screen and (min-width: 600px) {
+    width: 95%;
+  }
+  @media only screen and (min-width: 768px) {
+    width: 95%;
+  }
+  @media only screen and (min-width: 992px) {
+    width: 55%;
+  }
+  @media only screen and (min-width: 1200px) {
+    width: 45%;
+  }
+`;
+interface SearchBarProps {
+  onSearch: (searchTerm: string) => void;
+  value?: string;
+}
 
-export const SearchBar: FC = (): JSX.Element => {
-  const gameName = useAppSelector(state => state.stateSlice.gameName);
-  const dispatch = useAppDispatch();
-  const debouncedSearchTerm = useDebounce(gameName, 800)
+export const SearchBar: FC<SearchBarProps> = ({
+  value,
+  onSearch,
+}): JSX.Element => {
+  const [searchTerm, setSearchTerm] = useState(value);
+  const debouncedSearchTerm = useDebounce(searchTerm, 800);
+
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const nextSearchTerm = event.target.value;
+    if (nextSearchTerm === searchTerm) return;
+    setSearchTerm(nextSearchTerm);
+  };
+
   useEffect(() => {
-    if (debouncedSearchTerm) {
-      dispatch(setOffset(1))
-      dispatch(getGames(debouncedSearchTerm))
-    }
-  }, [debouncedSearchTerm, dispatch])
+    if (debouncedSearchTerm.length !== 0) onSearch(debouncedSearchTerm);
+  }, [debouncedSearchTerm, onSearch]);
 
   return (
-    <input
-      className={style.SearchBar}
-      placeholder='Enter an app name...'
-      value={gameName}
-      onChange={(event: React.ChangeEvent<HTMLInputElement>) => dispatch(setWordtoSearch(event.target.value))} />
-  )
-}
+    <StyledSearchBar
+      placeholder="Enter an app name..."
+      value={searchTerm}
+      onChange={onChangeHandler}
+    />
+  );
+};

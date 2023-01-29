@@ -1,10 +1,10 @@
-import { FC } from 'react';
-import styled from 'styled-components';
-import { gameInfo } from '../redux/stateSlice';
-import trashBin from '../components/LikeList/trashBin.png'
-import { useAppDispatch } from '../redux/store';
-import { deleteFromLikeList } from '../redux/likeListSlice';
-import { useNavigate } from 'react-router-dom';
+import { FC } from "react";
+import styled from "styled-components";
+import { gameInfo } from "../types";
+import trashBin from "../components/LikeList/trashBin.png";
+import { useAppDispatch } from "../redux/store";
+import { deleteFromLikeList } from "../redux/likeListSlice";
+import { useNavigate } from "react-router-dom";
 
 const StledItemContainer = styled.div`
   height: 100px;
@@ -15,7 +15,7 @@ const StledItemContainer = styled.div`
   padding-bottom: 4px;
   background: white;
   cursor: pointer;
-`
+`;
 
 const StyledItemImage = styled.img`
   width: 40%;
@@ -29,7 +29,7 @@ const StyledItemImage = styled.img`
   @media only screen and (min-width: 768px) {
     width: 30%;
   }
-`
+`;
 const StyledItemInfo = styled.span`
   background: white;
   width: 70%;
@@ -42,33 +42,39 @@ const StyledItemInfo = styled.span`
   @media only screen and (max-width: 600px) {
     font-size: 14px;
   }
-`
+`;
 
 const StyledItemDeleteBtn = styled.button`
   border: none;
   background: transparent;
   width: 10%;
-`
+`;
 
 const StyledItemDeleteBtnIcon = styled.img`
   background: white;
   cursor: pointer;
-`
+`;
 
 export const LikeListItem: FC<gameInfo> = (game): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   return (
     <StledItemContainer>
-      <StyledItemImage alt='img' src={game.imgUrl} onClick={() => navigate(`/game/${game.appId}`)} />
+      <StyledItemImage
+        alt="img"
+        src={game.imgUrl}
+        onClick={() => navigate(`/game/${game.appId}`)}
+      />
 
-      <StyledItemInfo onClick={() => navigate(`/game/${game.appId}`)}>{game.title}</StyledItemInfo>
+      <StyledItemInfo onClick={() => navigate(`/game/${game.appId}`)}>
+        {game.title}
+      </StyledItemInfo>
 
-      <StyledItemDeleteBtn onClick={() => dispatch(deleteFromLikeList(game.appId))}>
-
-        <StyledItemDeleteBtnIcon alt='trashBin' src={trashBin} />
-
+      <StyledItemDeleteBtn
+        onClick={() => dispatch(deleteFromLikeList(game.appId))}
+      >
+        <StyledItemDeleteBtnIcon alt="trashBin" src={trashBin} />
       </StyledItemDeleteBtn>
     </StledItemContainer>
-  )
-}
+  );
+};
