@@ -1,10 +1,10 @@
 import { FC } from "react";
 import styled from "styled-components";
 
-import gmail from "./gmail.png";
-import github from "./github.png";
-import linkedin from "./linkedin.png";
-import telegram from "./telegram.png";
+import gmail from "../icons/gmail.png";
+import github from "../icons/github.png";
+import linkedin from "../icons/linkedin.png";
+import telegram from "../icons/telegram.png";
 
 const StyledFooter = styled.footer`
   display: flex;

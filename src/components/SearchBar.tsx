@@ -1,4 +1,4 @@
-import useDebounce from "../../hooks/useDebounce";
+import useDebounce from "../hooks/useDebounce";
 
 import { FC, useEffect, useState, ChangeEvent } from "react";
 

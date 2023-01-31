@@ -9,8 +9,8 @@ import { FC } from "react";
 
 import { useAppSelector } from "../../redux/store";
 
-import controller from './controller.png'
-import brokenController from './brokenController.png'
+import controller from '../../icons/controller.png'
+import brokenController from '../../icons/brokenController.png'
 
 const StyledMainPage = styled.div`
   width: 100%;

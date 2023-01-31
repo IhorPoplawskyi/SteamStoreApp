@@ -8,8 +8,8 @@ import { gameInfo } from "../types";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { addToLikeList, deleteFromLikeList } from "../redux/likeListSlice";
 
-import heart from "../../icons/heart.png";
-import redHeart from "../../icons/redHeart.png";
+import heart from "../icons/heart.png";
+import redHeart from "../icons/redHeart.png";
 
 export const StyledGameCard = styled.div`
   display: flex;

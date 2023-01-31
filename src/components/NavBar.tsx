@@ -1,21 +1,23 @@
 import styled from "styled-components";
 
+import saved from "../icons/saved.svg";
+import logo_steam from "../icons/logo_steam.svg";
+
 import { FC, useCallback } from "react";
 
 import { SearchBar } from "./SearchBar";
 
-import { LikeList } from "../../components/LikeList/LikeList";
+import { LikeList } from "../components/LikeList/LikeList";
 
-import logo_steam from "../../icons/logo_steam.svg";
-import saved from "../../icons/saved.svg";
-import { showLikeList } from "../../redux/likeListSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { showLikeList } from "../redux/likeListSlice";
+import { useAppDispatch, useAppSelector } from "../redux/store";
 import {
   setSearchTerm,
   sortByPrice,
   sortByPublishedDate,
-} from "../../redux/stateSlice";
-import { fetchGames } from "../../redux/thunks";
+} from "../redux/stateSlice";
+
+import { fetchGames } from "../redux/thunks";
 
 const StyledNavBar = styled.div`
   position: fixed;
