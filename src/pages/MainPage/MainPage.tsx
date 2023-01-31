@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-import { NavBar } from "./NavBar";
-import { Footer } from "./Footer";
-import { GameCard } from "./GameCard";
-import { Preloader } from "../Preloader";
+import { NavBar } from "../../components/NavBar";
+import { Footer } from "../../components/Footer";
+import { GameCard } from "../../components/GameCard";
+import { Preloader } from "../../components/Preloader";
 
 import { FC } from "react";
 
 import { useAppSelector } from "../../redux/store";
 
-import controller from '../../icons/controller.png'
-import brokenController from '../../icons/brokenController.png'
+import controller from './controller.png'
+import brokenController from './brokenController.png'
 
 const StyledMainPage = styled.div`
   width: 100%;
@@ -45,7 +45,7 @@ const StyledCardContainer = styled.div`
     width: 80%;
   }
   @media only screen and (min-width: 992px) {
-    width: 70%;
+    width: 80%;
   }
   @media only screen and (min-width: 1200px) {
     width: 60%;
@@ -62,6 +62,13 @@ const StyledResultsInfo = styled.div`
   align-items: center;
   margin-top: 25vh;
   width: 70%;
+  @media only screen and (max-width: 600px) {
+    font-size: 16px;
+    width: 90%;
+    & img {
+      width: 70%;
+    }
+  }
 `;
 
 const StyledResultsInfoImg = styled.img`
@@ -72,7 +79,6 @@ const StyledResultsInfoImg = styled.img`
 export const MainPage: FC = (): JSX.Element => {
   const results = useAppSelector((state) => state.stateSlice.games);
   const status = useAppSelector((state) => state.stateSlice.status);
-  console.log(status);
 
   return (
     <StyledMainPage>
@@ -85,13 +91,13 @@ export const MainPage: FC = (): JSX.Element => {
         </StyledResultsInfo>
       )}
       {status === "loading" && <Preloader />}
-      {status === "success" && results?.length === 0 && (
+      {status === "success" && results?.length && results?.length === 0 && (
         <StyledResultsInfo>Nothing found, check that the game name is correct and try again!
             <StyledResultsInfoImg src={brokenController} alt="broken controller"/>
         </StyledResultsInfo>
       )}
       <StyledCardContainer>
-        {results && results!.map((el) => <GameCard key={el.appId} {...el} />)}
+        {results?.length && results!.map((el) => <GameCard key={el.appId} {...el} />)}
       </StyledCardContainer>
       <Footer />
     </StyledMainPage>

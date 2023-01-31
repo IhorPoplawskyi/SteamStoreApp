@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { GamePage } from "./components/GamePage/GamePage";
-import { MainPage } from "./components/MainPage/MainPage";
+import { GamePage } from "./pages/GamePage/GamePage";
+import { MainPage } from "./pages/MainPage/MainPage";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 

@@ -3,11 +3,11 @@ import { gameInfo, singleGame } from "../types";
 import { RootState } from "./store";
 
 const options = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": "f0c05d51f5msh03556242bd12f44p164565jsn49ae83ae546b",
-    "X-RapidAPI-Host": "steam2.p.rapidapi.com",
-  },
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '5ef3d81f10msh81d8f2b66d806e2p1b071djsn6648ea2c76c9',
+		'X-RapidAPI-Host': 'steam2.p.rapidapi.com'
+	}
 };
 
 export const fetchGames = createAsyncThunk(

@@ -1,10 +1,14 @@
-import { FC } from "react";
 import styled from "styled-components";
-import { gameInfo } from "../types";
-import trashBin from "../components/LikeList/trashBin.png";
-import { useAppDispatch } from "../redux/store";
-import { deleteFromLikeList } from "../redux/likeListSlice";
+import trashBin from ".//trashBin.png";
+
+import { FC } from "react";
+
+import { gameInfo } from "../../types";
+
 import { useNavigate } from "react-router-dom";
+
+import { useAppDispatch } from "../../redux/store";
+import { deleteFromLikeList } from "../../redux/likeListSlice";
 
 const StledItemContainer = styled.div`
   height: 100px;

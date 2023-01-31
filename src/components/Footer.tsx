@@ -1,10 +1,10 @@
 import { FC } from "react";
 import styled from "styled-components";
 
-import linkedin from "../../icons/linkedin.png";
-import telegram from "../../icons/telegram.png";
-import github from "../../icons/github.png";
-import gmail from "../../icons/gmail.png";
+import gmail from "./gmail.png";
+import github from "./github.png";
+import linkedin from "./linkedin.png";
+import telegram from "./telegram.png";
 
 const StyledFooter = styled.footer`
   display: flex;
@@ -13,6 +13,9 @@ const StyledFooter = styled.footer`
   height: 60px;
   width: 100%;
   justify-content: space-around;
+  @media only screen and (max-width: 330px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const StyledIconsBlock = styled.section`
@@ -52,7 +55,7 @@ export const Footer: FC = (): JSX.Element => {
   return (
     <StyledFooter>
       <StyledInfo>
-        Created by <StyledName>Ihor Poplawskyi</StyledName>
+        Created by <StyledName target='_blank' href="https://t.me/Greg_vishki">Ihor Poplawskyi</StyledName>
       </StyledInfo>
       <StyledIconsBlock>
         <StyledIcon

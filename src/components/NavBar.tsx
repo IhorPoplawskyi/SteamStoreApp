@@ -4,7 +4,7 @@ import { FC, useCallback } from "react";
 
 import { SearchBar } from "./SearchBar";
 
-import { LikeList } from "../LikeList/LikeList";
+import { LikeList } from "../../components/LikeList/LikeList";
 
 import logo_steam from "../../icons/logo_steam.svg";
 import saved from "../../icons/saved.svg";
@@ -29,6 +29,10 @@ const StyledNavBar = styled.div`
   gap: 0.5%;
   padding-top: 10px;
   padding-bottom: 10px;
+  @media only screen and (max-width: 600px) {
+    flex-wrap: wrap;
+    height: 80px;
+  }
 `;
 
 const StyledFilters = styled.select`
@@ -40,7 +44,9 @@ const StyledFilters = styled.select`
   outline: none;
   border: none;
   @media only screen and (max-width: 600px) {
-    width: 47%;
+    width: 45%;
+    height: 30px;
+    margin-top: 2px;
   }
   @media only screen and (min-width: 600px) {
     width: 47%;
@@ -62,11 +68,19 @@ const StyledPriceFilter = styled(StyledFilters)``;
 
 const LikeListBtn = styled.img`
   width: 40px;
+  height: 35px;
   cursor: pointer;
+  @media only screen and (max-width: 600px) {
+    width: 9%;
+    margin-top: 2px;
+  }
 `;
 
 const StyledLogo = styled.img`
   width: 150px;
+  @media only screen and (max-width: 600px) {
+    width: 18%;
+  }
 `;
 
 export const NavBar: FC = (): JSX.Element => {

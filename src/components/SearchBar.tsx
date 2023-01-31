@@ -16,7 +16,8 @@ const StyledSearchBar = styled.input`
     color: white;
   }
   @media only screen and (max-width: 600px) {
-    width: 95%;
+    width: 80%;
+    height: 30px;
   }
   @media only screen and (min-width: 600px) {
     width: 95%;

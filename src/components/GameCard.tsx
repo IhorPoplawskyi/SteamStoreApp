@@ -4,9 +4,9 @@ import { FC } from "react";
 
 import { Link } from "react-router-dom";
 
-import { gameInfo } from "../../types";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { addToLikeList, deleteFromLikeList } from "../../redux/likeListSlice";
+import { gameInfo } from "../types";
+import { useAppDispatch, useAppSelector } from "../redux/store";
+import { addToLikeList, deleteFromLikeList } from "../redux/likeListSlice";
 
 import heart from "../../icons/heart.png";
 import redHeart from "../../icons/redHeart.png";

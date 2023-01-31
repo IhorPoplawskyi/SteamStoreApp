@@ -19,6 +19,21 @@ const StyledGameContainer = styled.div`
   flex-direction: column;
   background: #1b2838;
   box-sizing: border-box;
+  @media only screen and (max-width: 600px) {
+    width: 90%;
+  }
+  @media only screen and (min-width: 600px) {
+    width: 80%;
+  }
+  @media only screen and (min-width: 768px) {
+    width: 70%;
+  }
+  @media only screen and (min-width: 992px) {
+    width: 60%;
+  }
+  @media only screen and (min-width: 1200px) {
+    width: 45%;
+  }
 `;
 
 const StyledHeader = styled.header`
@@ -61,6 +76,9 @@ const StyledTitle = styled.div`
   font-size: 24px;
   background: #1b2838;
   padding: 10px 0px 0px 10px;
+  @media only screen and (max-width: 330px) {
+    font-size: 16px;
+  }
 `;
 
 const StyledDescription = styled.div`
@@ -180,6 +198,9 @@ const StyledDLCItem = styled.a`
   &:hover {
     border: 0.5px solid #00bfff;
   }
+  @media only screen and (max-width: 330px) {
+    font-size: 7px;
+  }
 `;
 
 const StyledDLCItemImg = styled.img`
@@ -193,8 +214,8 @@ export const GamePage: FC = (): JSX.Element => {
   const currentGame = useAppSelector((state) => state.stateSlice.currentGame);
 
   useEffect(() => {
-    dispatch(fetchDetailedGame(id!));
-  }, []);
+    if (id) dispatch(fetchDetailedGame(id));
+  }, [id]);
   return (
     <StyledWrapper>
       <StyledGameContainer>

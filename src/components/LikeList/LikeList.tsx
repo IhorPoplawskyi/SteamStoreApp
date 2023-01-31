@@ -4,7 +4,7 @@ import sad from "./sad.png";
 
 import React from "react";
 
-import { LikeListItem } from "../LikeListItem";
+import { LikeListItem } from "./LikeListItem";
 
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 
