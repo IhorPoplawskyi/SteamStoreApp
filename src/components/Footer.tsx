@@ -55,7 +55,10 @@ export const Footer: FC = (): JSX.Element => {
   return (
     <StyledFooter>
       <StyledInfo>
-        Created by <StyledName target='_blank' href="https://t.me/Greg_vishki">Ihor Poplawskyi</StyledName>
+        Created by{" "}
+        <StyledName target="_blank" href="https://t.me/Greg_vishki">
+          Ihor Poplawskyi
+        </StyledName>
       </StyledInfo>
       <StyledIconsBlock>
         <StyledIcon

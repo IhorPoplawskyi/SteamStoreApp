@@ -2,23 +2,32 @@ import styled from "styled-components";
 
 import { FC, useEffect } from "react";
 
+import { Preloader } from "../../components/Preloader";
+
 import { useParams, useNavigate } from "react-router-dom";
 
 import { fetchDetailedGame } from "../../redux/thunks";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 
-const StyledWrapper = styled.div`
+export const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
+  background: rgb(4, 79, 110);
+  background: linear-gradient(
+    180deg,
+    rgba(4, 79, 110, 1) 32%,
+    rgba(1, 91, 120, 1) 60%,
+    rgba(33, 115, 126, 1) 87%
+  );
 `;
 
-const StyledGameContainer = styled.div`
+export const StyledGameContainer = styled.div`
   min-height: 100vh;
   width: 45%;
   display: flex;
   flex-direction: column;
-  background: #1b2838;
   box-sizing: border-box;
+  background: #1b2838;
   @media only screen and (max-width: 600px) {
     width: 90%;
   }
@@ -207,10 +216,19 @@ const StyledDLCItemImg = styled.img`
   background: #1b2838;
 `;
 
+const StyledErrorMessage = styled.div`
+  display: flex;
+  color: white;
+  height: 100vh;
+  align-items: center;
+`;
+
 export const GamePage: FC = (): JSX.Element => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const status = useAppSelector((state) => state.stateSlice.statusGP);
+  const error = useAppSelector((state) => state.stateSlice.currentGameError);
   const currentGame = useAppSelector((state) => state.stateSlice.currentGame);
 
   useEffect(() => {
@@ -218,62 +236,70 @@ export const GamePage: FC = (): JSX.Element => {
   }, [id]);
   return (
     <StyledWrapper>
-      <StyledGameContainer>
-        <StyledHeader>
-          <StyledHeaderImage src={currentGame?.imgUrl} alt="image" />
-        </StyledHeader>
-        <StyledBackButton onClick={() => navigate("/home")}>
-          Back
-        </StyledBackButton>
-        <StyledMain>
-          <StyledTitle>{currentGame?.title}</StyledTitle>
-          <StyledDescription>{currentGame?.description}</StyledDescription>
-          <StyledReviews>
-            REVIEWS:
-            <StyledBlueText>{currentGame?.allReviews.summary}</StyledBlueText>
-          </StyledReviews>
-          <StyledReleased>
-            RELEASED:<StyledBlueText>{currentGame?.released}</StyledBlueText>
-          </StyledReleased>
-          <StyledPrice>
-            PRICE:<StyledBlueText>{currentGame?.price}</StyledBlueText>{" "}
-          </StyledPrice>
-          <StyledPublisher>
-            PUBLISHER:
-            <StyledLink href={currentGame?.publisher.link} target="_blank">
-              {currentGame?.publisher.name}
-            </StyledLink>
-          </StyledPublisher>
-          <StyledDeveloper>
-            DEVELOPER:
-            <StyledLink href={currentGame?.developer.link} target="_blank">
-              {currentGame?.developer.name}
-            </StyledLink>
-          </StyledDeveloper>
-          {currentGame?.DLCs.length !== 0 && (
-            <StyledDLCWrapper>
-              <StyledDLCTitle>Additional content</StyledDLCTitle>
-              <StyledDLCBlock>
-                {currentGame?.DLCs.map((el) => (
-                  <StyledDLCItem key={el.appId} href={el.url} target="_blank">
-                    <StyledDLCItemImg
-                      title={el.name}
-                      src={currentGame.imgUrl}
-                      alt="img"
-                    />
-                    {el.name}
-                  </StyledDLCItem>
-                ))}
-              </StyledDLCBlock>
-            </StyledDLCWrapper>
-          )}
-        </StyledMain>
-        <StyledTagsBlock>
-          {currentGame?.tags.map((tag) => (
-            <StyledTagItem href={tag.url}>{`#${tag.name}`}</StyledTagItem>
-          ))}
-        </StyledTagsBlock>
-      </StyledGameContainer>
+      {status === "loading" && <Preloader />}
+      {error !== null ? (
+        <StyledErrorMessage>{error.message}</StyledErrorMessage>
+      ) : (
+        <StyledGameContainer>
+          <StyledHeader>
+            <StyledHeaderImage src={currentGame?.imgUrl} alt="image" />
+          </StyledHeader>
+          <StyledBackButton onClick={() => navigate("/home")}>
+            Back
+          </StyledBackButton>
+          <StyledMain>
+            <StyledTitle>{currentGame?.title}</StyledTitle>
+            <StyledDescription>{currentGame?.description}</StyledDescription>
+            <StyledReviews>
+              REVIEWS:
+              <StyledBlueText>{currentGame?.allReviews.summary}</StyledBlueText>
+            </StyledReviews>
+            <StyledReleased>
+              RELEASED:<StyledBlueText>{currentGame?.released}</StyledBlueText>
+            </StyledReleased>
+            <StyledPrice>
+              PRICE:<StyledBlueText>{currentGame?.price}</StyledBlueText>
+            </StyledPrice>
+            <StyledPublisher>
+              PUBLISHER:
+              <StyledLink href={currentGame?.publisher.link} target="_blank">
+                {currentGame?.publisher.name}
+              </StyledLink>
+            </StyledPublisher>
+            <StyledDeveloper>
+              DEVELOPER:
+              <StyledLink href={currentGame?.developer.link} target="_blank">
+                {currentGame?.developer.name}
+              </StyledLink>
+            </StyledDeveloper>
+            {currentGame?.DLCs.length !== 0 && (
+              <StyledDLCWrapper>
+                <StyledDLCTitle>Additional content</StyledDLCTitle>
+                <StyledDLCBlock>
+                  {currentGame?.DLCs.map((el) => (
+                    <StyledDLCItem key={el.appId} href={el.url} target="_blank">
+                      <StyledDLCItemImg
+                        title={el.name}
+                        src={currentGame.imgUrl}
+                        alt="img"
+                      />
+                      {el.name}
+                    </StyledDLCItem>
+                  ))}
+                </StyledDLCBlock>
+              </StyledDLCWrapper>
+            )}
+          </StyledMain>
+          <StyledTagsBlock>
+            {currentGame?.tags.map((tag) => (
+              <StyledTagItem
+                key={tag.name}
+                href={tag.url}
+              >{`#${tag.name}`}</StyledTagItem>
+            ))}
+          </StyledTagsBlock>
+        </StyledGameContainer>
+      )}
     </StyledWrapper>
   );
 };

@@ -9,8 +9,8 @@ import { FC } from "react";
 
 import { useAppSelector } from "../../redux/store";
 
-import controller from '../../icons/controller.png'
-import brokenController from '../../icons/brokenController.png'
+import controller from "../../icons/controller.png";
+import brokenController from "../../icons/brokenController.png";
 
 const StyledMainPage = styled.div`
   width: 100%;
@@ -72,32 +72,41 @@ const StyledResultsInfo = styled.div`
 `;
 
 const StyledResultsInfoImg = styled.img`
-    background: transparent;
-    max-width: 256px;
-`
+  background: transparent;
+  max-width: 256px;
+`;
 
 export const MainPage: FC = (): JSX.Element => {
   const results = useAppSelector((state) => state.stateSlice.games);
-  const status = useAppSelector((state) => state.stateSlice.status);
+  const status = useAppSelector((state) => state.stateSlice.statusMP);
+  const error = useAppSelector((state) => state.stateSlice.gamesError);
 
   return (
     <StyledMainPage>
       <NavBar />
       {status === "init" && (
         <StyledResultsInfo>
-          This is a service where you can find games and information about these games on Steam store. To start,
-          please enter an game name in search.
-          <StyledResultsInfoImg src={controller} alt='controller'/>
+          This is a service where you can find games and information about these
+          games on Steam store. To start, please enter an game name in search.
+          <StyledResultsInfoImg src={controller} alt="controller" />
         </StyledResultsInfo>
       )}
       {status === "loading" && <Preloader />}
-      {status === "success" && results?.length && results?.length === 0 && (
-        <StyledResultsInfo>Nothing found, check that the game name is correct and try again!
-            <StyledResultsInfoImg src={brokenController} alt="broken controller"/>
+      {status === "success" && results?.length === 0 && (
+        <StyledResultsInfo>
+          Nothing found, check that the game name is correct and try again!
+          <StyledResultsInfoImg
+            src={brokenController}
+            alt="broken controller"
+          />
         </StyledResultsInfo>
       )}
       <StyledCardContainer>
-        {results?.length && results!.map((el) => <GameCard key={el.appId} {...el} />)}
+        {error !== null ? (
+          <StyledResultsInfo>{error.message}</StyledResultsInfo>
+        ) : (
+          results && results!.map((el) => <GameCard key={el.appId} {...el} />)
+        )}
       </StyledCardContainer>
       <Footer />
     </StyledMainPage>
